@@ -7384,9 +7384,14 @@ tryer@^1.0.1:
   resolved "https://registry.npm.taobao.org/tryer/download/tryer-1.0.1.tgz#f2c85406800b9b0f74c9f7465b81eaad241252f8"
   integrity sha1-8shUBoALmw90yfdGW4HqrSQSUvg=
 
-ts-application-error@to-gth/ts-application-error.git:
+ts-applicatin-error@to-gth/ts-application-error.git, ts-application-error@to-gth/ts-application-error.git:
   version "1.0.0"
   resolved "https://codeload.github.com/to-gth/ts-application-error/tar.gz/98de77f9aa55b367fb073b4e22ff23b0a9060e59"
+
+ts-brand@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/ts-brand/-/ts-brand-0.0.2.tgz#b6cbca6ac94df1050a05844e23944eaeda1738a0"
+  integrity sha512-UhSzWY4On9ZHIj6DKkRYVN/8OaprbLAZ3b/Y2AJwdl6oozSABsQ0PvwDh4vOVdkvOtWQOkIrjctZ1kj8YfF3jA==
 
 ts-loader@^6.2.1:
   version "6.2.1"
@@ -7398,6 +7403,13 @@ ts-loader@^6.2.1:
     loader-utils "^1.0.2"
     micromatch "^4.0.0"
     semver "^6.0.0"
+
+ts-number@to-gth/ts-number.git:
+  version "1.0.0"
+  resolved "https://codeload.github.com/to-gth/ts-number/tar.gz/0e05dddd1b1eb294f1353035c73ef1872cc77c99"
+  dependencies:
+    ts-applicatin-error to-gth/ts-application-error.git
+    ts-brand "^0.0.2"
 
 ts-pnp@^1.1.6:
   version "1.1.6"
