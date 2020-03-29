@@ -1,14 +1,17 @@
 
 import Row from './Row';
+import Address from './Address';
+import Card from './Card';
+import SquareAddressed from './SquareAddressed';
+import Arr from '@/foundation/Arr';
 
 type Rows = Row[]
 
 namespace Rows {
 
-  // const admits = (a: any[]): a is Square => {
-  //   const some = a.left || a.top || a.right || a.bottom;
-  //   return some;
-  // };
+  const admits = (a: Row[]): a is Rows => {
+    return Arr.isRectangle(a)
+  };
 
   // export const from = (): Rows => {
   //   const row = []
@@ -20,9 +23,31 @@ namespace Rows {
 
 namespace Rows {
 
+  const attachedAt = (address: Address, card: Card, rows: Rows): Rows => {
+
+    const { primary, secondary } = SquareAddressed.primaryAndSecondaryFrom(card, address)
+
+    const outermostNew = Address.outermostOf(primary.address, secondary.address)
+    const outermostPresent = Address.outermostIn(rows)
+    const outermost = Address.outermostOf(outermostNew, outermostPresent)
+    outermost.
+
+
+    const rowPrimary = Row.attachedOf(primary, rows)
+    const rowSecondary  = Row.attachedOf(secondary, rows)
+
+
+  }
+}
+
+namespace Rows {
+
+  const blank = (): Rows => []
+
   export const initialized = (): Rows => {
 
-    return from(false, false, false, false)
+
+    // return from(false, false, false, false)
   }
 }
 

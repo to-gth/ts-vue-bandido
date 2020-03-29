@@ -1,20 +1,19 @@
 
-import Address from '@/foundation/Point'
+import Address from './Address'
 import Square from './Square';
 import Card from './Card';
 
 type SquareAddressed = {
   address: Address;
-  Square: Square;
+  square: Square;
 };
 
 namespace SquareAddressed {
 
-  export const _admits = (a: any): a is SquareAddressed => {
-
-    if(!Address.admits(a.address)) return false
-    if(!Square.admits(a.square)) return false
+  const _admits = (a: any): a is SquareAddressed => {
     return true
+      && Address.admits(a.address)
+      && Square.admits(a.square)
   }
 
   export const from = (address: Address, square: Square): SquareAddressed => {
