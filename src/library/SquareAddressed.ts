@@ -4,6 +4,7 @@ import Square from './Square';
 import Card from './Card';
 import Direction from '@/foundation/Direction';
 import Limb from './Limb';
+import SquareFilled from './SquareFilled';
 
 type SquareAddressed = {
   address: Address;
@@ -13,9 +14,9 @@ type SquareAddressed = {
 namespace SquareAddressed {
 
   const _admits = (a: any): a is SquareAddressed => {
-    return true
+    return !!a
       && Address.admits(a.address)
-      && Square.admits(a.square)
+      && SquareFilled.admits(a.square)
   }
 
   export const from = (address: Address, square: Square): SquareAddressed => {
@@ -28,13 +29,13 @@ namespace SquareAddressed {
 
 namespace SquareAddressed {
 
-  const _from = (limb: Limb, address: Address, direction: Direction): SquareAddressed => {
-    const square = Square.from(direction, limb)
+  const _from = (limb: Limb, address: Address, side: Direction): SquareAddressed => {
+    const square = SquareFilled.from(side, limb)
     return from(address, square)
   }
   const primaryFrom = (limb: Limb, address: Address, cardDirection: Direction): SquareAddressed => {
-    const direction = Direction.oppositeOf(cardDirection)
-    return _from(limb, address, direction)
+    const side = Direction.oppositeOf(cardDirection)
+    return _from(limb, address, side)
   }
   const secondaryFrom = (limb: Limb, address: Address, cardDirection: Direction): SquareAddressed => {
     const nextAddress = Address.shiftedToNext(cardDirection, address)
