@@ -1,30 +1,68 @@
 
 import Point from '@/foundation/Point'
-import Area from './Area'
+import Direction from '@/foundation/Direction'
+import ApplicationError from 'ts-application-error';
+import Rows from './Rows';
 
-type Address = {
-  area: Area;
-  point: Point;
-};
+type Address = Point;
 
 namespace Address {
 
-  export const admits = (a: any): a is Address => {
-    if(!Area.admits(a.area)) return false
-    if(!Point.admits(a.point)) return false
-    return true
-  }
+  export const admits = Point.admits
+  export const from = Point.from
 
-  export const from = (area: Area, point: Point): Address => {
-    const address = { area, point };
-    if (admits(address)) return address;
-    throw new Error(`Failed to create an address from: ${area}, ${point}`);
-  };
+  export const zero = from(0, 0)
 }
 
 namespace Address {
 
-  export const outermostIn = (rows: Rows): Address => {
+  const diffXY = (direction: Direction): [number, number] => {
+    switch (direction) {
+      case Direction.Up: return [0, -1]
+      case Direction.Down: return [0, 1]
+      case Direction.Left: return [-1, 0]
+      case Direction.Right: return [1, 0]
+      default: throw new ApplicationError(`Failed to create diffXY from: ${ direction }`)
+    }
+  }
+  const diffOf = (direction: Direction): Point => {
+    const [left, top] = diffXY(direction)
+    return from(left, top)
+  }
+
+  export const shiftedBy = Point.shiftedBy
+
+  export const shiftedToNext = (direction: Direction, address: Address): Address => {
+    const diff = diffOf(direction)
+    return shiftedBy(diff, address)
+  }
+}
+
+namespace Address {
+
+  export const outermostIn = (rows: Rows, primary: Address, secondary: Address): { leftTop: Address, rightBottom: Address } => {
+
+    const lefts = [primary.left, secondary.left]
+    const tops = [primary.top, secondary.top]
+
+    const minLeft = Math.min(...lefts, 0)
+    const minTop = Math.min(...tops, 0)
+    const leftTop = Address.from(minLeft, minTop)
+
+    const maxLeft = Math.max(...lefts, Rows.widthOf(rows))
+    const maxTop = Math.max(...tops, Rows.heightOf(rows))
+    const rightBottom = Address.from(maxLeft, maxTop)
+
+    return { leftTop, rightBottom }
+  }
+}
+
+namespace Address {
+
+  export const oppositeOf = (address: Address): Address => {
+    const left = -address.left
+    const top = -address.top
+    return from(left, top)
   }
 }
 
