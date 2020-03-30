@@ -7,6 +7,11 @@ import Arr from '@/foundation/Arr';
 import Int from 'ts-number/src/Int';
 import Square from './Square';
 import Limb from './Limb';
+import ApplicationError from 'ts-application-error';
+import SquareFilled from './SquareFilled';
+import LimbDirection from './LimbDirection';
+import SquareBlank from './SquareBlank';
+import Direction from '@/foundation/Direction';
 
 type Rows = Row[]
 
@@ -30,6 +35,18 @@ namespace Rows {
 
   export const widthOf = (rows: Rows): number => rows[0].length
   export const heightOf = (rows: Rows): number => rows.length
+}
+
+namespace rows {
+
+  const rowAttachedAt = (top: Int, row: Row, rows: Rows): Rows => {
+
+  }
+}
+
+namespace rows {
+
+  const squareAttached = (): Rows => { }
 }
 
 namespace Rows {
@@ -56,20 +73,48 @@ namespace Rows {
     rows.slice(-1)
   }
 
+
+
+
   const putFillableAround = (address: Address, rows: Rows): void => {
 
     const center = Square.at(address, rows)
-    const limb = center.limb
-    const directions = Limb.directionsOf(limb, center.side)
+    if (!center) throw new ApplicationError(`Failed to get a square at: ${address} in ${rows}`)
+    if (!SquareFilled.admits(center)) return
 
-    directions
-      .map((direction) => Address.shiftedToNext(direction, address))
-      .filter((address) => Square.isBlankAt(address, rows))
-      .map((address) => {
-      })
+
+
+    LimbDirection.sAllFrom(center.side).forEach((direction) => {
+
+      const shifted = Address.shiftedToNext(direction, address)
+      const square = Square.at(shifted, rows)
+      if (!SquareBlank.admits(square)) return
+
+      if (LimbDirection.isIncludedIn(center, direction)) {
+        const opposite = Direction.oppositeOf(direction)
+        const added = SquareBlank.OpenAddedOn(opposite, square)
+        const addressed = SquareAddressed.from(shifted, added)
+        const row = Row.attachedOf(addressed, rows)
+      }
+    })
+
+
+
+
+    const limb = center.limb
+    const directions = LimbDirection.sFrom(center)
+
+    directions .forEach((direction) => {
+      const shifted = Address.shiftedToNext(direction, address)
+      const square = Square.at(shifted, rows)
+      if (!SquareBlank.admits(square)) return
+
+      const opposite = Direction.oppositeOf(direction)
+      const added = SquareBlank. square
+    })
   }
 
-  export const attachedAt = (address: Address, card: Card, rows: Rows): Rows => {
+  export const cardAttachedAt = (address: Address, card: Card, rows: Rows): Rows => {
 
     const { primary, secondary } = SquareAddressed.primaryAndSecondaryFrom(card, address)
     const { leftTop, rightBottom } = Address.outermostIn(rows, primary.address, secondary.address)
@@ -100,7 +145,7 @@ namespace Rows {
     const card = Card.first()
     const address = Address.zero
     const rows = blank()
-    return attachedAt(address, card, rows)
+    return cardAttachedAt(address, card, rows)
   }
 }
 
