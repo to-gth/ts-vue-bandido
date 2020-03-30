@@ -3,7 +3,6 @@ import Direction from '@/foundation/Direction';
 import Limb from './Limb';
 import Rows from './Rows';
 import Address from './Address';
-import SquareBlank from './SquareBlank';
 
 // type Square = {
 //   left: boolean;
@@ -13,12 +12,10 @@ import SquareBlank from './SquareBlank';
 // };
 
 
-// type Square = {
-//   side: Direction;
-//   limb: Limb;
-// };
-
-type Square = SquareFilled | SquareBlank
+type Square = {
+  side: Direction;
+  limb: Limb;
+};
 
 namespace Square {
 

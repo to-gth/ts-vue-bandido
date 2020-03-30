@@ -1,9 +1,9 @@
 
-import Card from './Card';
-import SquareAddressed from './SquareAddressed';
+import Square from './Square';
 import Rows from './Rows';
+import SquareBlank from './SquareBlank';
 
-type Row = SquareAddressed[]
+type Row = Array<Square | SquareBlank>
 
 namespace Row {
 
@@ -37,17 +37,14 @@ namespace Row {
 
 namespace Row {
 
-  export const initialized1 = (): Row => {
+  export const blank = (): Row => []
 
-    const first = Card.first()
-    const squares = Square.sFrom
-    return from(false, false, false, false)
+  export const isBlank = (row: Row): boolean => {
+    row.every((square) => {
+      Square.isBlank(square)
+    })
   }
 
-  export const initialized2 = (): Row => {
-
-    return from(false, false, false, false)
-  }
 }
 
 export default Row;

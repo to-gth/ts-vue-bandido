@@ -7,7 +7,7 @@ enum Restrict {
   Close,
 }
 
-type SquareBlankFillable = {
+type SquareBlank = {
   left: Restrict;
   top: Restrict;
   right: Restrict;
@@ -39,7 +39,7 @@ namespace Square {
   // };
 }
 
-namespace SquareBlankFillable {
+namespace SquareBlank {
 }
 
-export default SquareBlankFillable;
+export default SquareBlank;
