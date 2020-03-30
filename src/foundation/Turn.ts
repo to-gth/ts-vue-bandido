@@ -3,6 +3,7 @@ export enum Turn {
   none = 0,
   clockwise = 1,
   anticlockwise = -1,
+  opposite = 2,
 }
 
 export namespace Turn {

@@ -47,6 +47,9 @@ namespace Direction {
   export const anticlockwised = (direction: Direction): Direction => {
     return turned(direction, Turn.anticlockwise)
   }
+  export const oppositeOf = (direction: Direction): Direction => {
+    return turned(direction, Turn.opposite)
+  }
 }
 
 namespace Direction {
