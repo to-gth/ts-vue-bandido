@@ -1,5 +1,7 @@
 
 import ApplicationError from 'ts-application-error'
+import Real from 'ts-number/src/Real'
+import Direction from './Direction'
 
 type Vector = {
   x: number;
@@ -8,14 +10,10 @@ type Vector = {
 
 namespace Vector {
 
-  const isNumber = (n: any): boolean => {
-      return typeof(n) === 'number'
-  }
-
   export const accepts = (a: any): a is Vector => {
     return !!a
-      && isNumber(a.x)
-      && isNumber(a.x)
+      && Real.admits(a.x)
+      && Real.admits(a.y)
   }
 
   export const from = (x: number, y: number): Vector => {
@@ -30,6 +28,22 @@ namespace Vector {
   export const reversed = (vector: Vector): Vector => {
     const x = -vector.x
     const y = -vector.y
+    return from(x, y)
+  }
+}
+
+namespace Vector {
+
+  const xyBy = {
+    [Direction.Up]: [0, -1],
+    [Direction.Down]: [0, 1],
+    [Direction.Left]: [-1, 0],
+    [Direction.Right]: [1, 0],
+  }
+  export const ofUnitFor = (direction: Direction): Vector => {
+    const xy = xyBy[direction]
+    if (!xy) throw new ApplicationError(`Failed to create xy from: ${ direction }`)
+    const [x, y] = xy
     return from(x, y)
   }
 }

@@ -25,9 +25,9 @@ namespace Point {
     throw new ApplicationError(`Failed to create a point from: ${left}, ${top}`)
   }
 
-  export const shiftedBy = (diff: Vector, point: Point): Point => {
-    const left = point.left + diff.x
-    const top = point.top + diff.y
+  export const shiftedBy = (offset: Vector, point: Point): Point => {
+    const left = point.left + offset.x
+    const top = point.top + offset.y
     return from(left, top)
   }
 }
