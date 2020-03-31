@@ -1,16 +1,24 @@
 import Int from 'ts-number/src/Int'
 import Point from './Point'
 
-export namespace Arr {
+type Matrix = any[][]
 
-  export const isRectangle = (arr: any[][]): boolean => {
-    const set = new Set(arr.map(row => row.length))
+namespace Matrix {
+
+  const isRectangle = (a: any[][]): boolean => {
+    const set = new Set(a.map(row => row.length))
     return set.size <= 1
   }
+  export const accepts = (a: any[][]): a is Matrix => {
+    return isRectangle(a)
+  }
 
-  export const rectangleOf = (width: Int, height: Int): any[][] => {
+  export const from = (width: Int, height: Int): Matrix => {
     return [...Array(height)].map(() => [...Array(width)])
   }
+}
+
+namespace Matrix {
 
   export const pastedAt = (leftTop: Point, base: any[][], rect: any[][]): any[][] => {
     const { left, top } = leftTop
@@ -21,4 +29,4 @@ export namespace Arr {
   }
 }
 
-export default Arr
+export default Matrix
