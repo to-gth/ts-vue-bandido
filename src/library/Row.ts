@@ -27,14 +27,13 @@ namespace Row {
     const row = rows[top]
     return row ? row.slice() : null
   }
+}
 
-  // export const attachedOf = (squareAddressed: SquareAddressed, rows: Rows): Row => {
+namespace Row {
 
-  //   const { left, top } =  squareAddressed.address.point
-  //   const row = (at(top, rows) || []).slice()
-  //   row[left] = squareAddressed
-  //   return row
-  // }
+  export const clonedFrom = (row: Row): Row => {
+    return row.map(Square.clonedFrom)
+  }
 }
 
 namespace Row {
