@@ -14,6 +14,27 @@ type Rows = Row[]
 
 namespace Rows {
 
+  // TODO
+  // accepts() should also check if it margined
+  // const accepts = (a: any): a is Rows => {}
+  // const clonedFrom = (a: any): a is Rows => {}
+
+// namespace Rows {
+
+//   const accepts = (a: Row[]): a is Rows => {
+//     return true
+//       && a.length >= 1
+//       && Arr.isRectangle(a)
+//   };
+
+//   export const from = (): Rows => {
+//     const row = []
+//     if (_accepts(square)) return square;
+//     // throw new ApplicationError(`Failed to create a square from: ${ square }`)
+//     throw new Error(`Failed to create a square from: ${square}`);
+//   };
+// }
+
   export const blank = (width: number, height: number): Rows => {
     return [...Array(height)].fill(width).map(Row.blank)
   }
@@ -70,28 +91,3 @@ namespace Rows {
 }
 
 export default Rows;
-
-
-
-
-// TODO
-// accepts() should also check if it margined
-
-
-
-
-// namespace Rows {
-
-//   const accepts = (a: Row[]): a is Rows => {
-//     return true
-//       && a.length >= 1
-//       && Arr.isRectangle(a)
-//   };
-
-//   export const from = (): Rows => {
-//     const row = []
-//     if (_accepts(square)) return square;
-//     // throw new ApplicationError(`Failed to create a square from: ${ square }`)
-//     throw new Error(`Failed to create a square from: ${square}`);
-//   };
-// }
