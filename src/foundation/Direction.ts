@@ -19,12 +19,12 @@ namespace Direction {
 
   const size = all.length
 
-  export const admits = (n: number): n is Direction => {
+  export const accepts = (n: number): n is Direction => {
     return all.includes(n)
   }
 
   const _from = (n: number): Direction => {
-    if (admits(n)) return n
+    if (accepts(n)) return n
     throw new ApplicationError(`Failed to create a Direction from: ${ n }`)
   }
 

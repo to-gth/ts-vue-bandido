@@ -10,15 +10,15 @@ type SquareFilled = {
 
 namespace SquareFilled {
 
-  export const admits = (a: any): a is SquareFilled => {
+  export const accepts = (a: any): a is SquareFilled => {
     return true
-      && Direction.admits(a.direction)
-      && Limb.admits(a.limb)
+      && Direction.accepts(a.direction)
+      && Limb.accepts(a.limb)
   };
 
   export const from = (side: Direction, limb: Limb): SquareFilled => {
     const square = { side, limb };
-    if (admits(square)) return square;
+    if (accepts(square)) return square;
     throw new ApplicationError(`Failed to create a square from: ${ square }`)
   };
 }

@@ -22,7 +22,7 @@ namespace Limb {
     Limb.LHR,
   ]
 
-  export const admits = (a: any): a is Limb => {
+  export const accepts = (a: any): a is Limb => {
 
     return  all.includes(a)
   }

@@ -9,7 +9,7 @@ type Address = Point;
 
 namespace Address {
 
-  export const admits = Point.admits
+  export const accepts = Point.accepts
   export const from = Point.from
 
   export const zero = from(0, 0)

@@ -13,7 +13,7 @@ namespace BlankRestrict {
     BlankRestrict.Close,
   ]
 
-  export const admits = (a: any): a is BlankRestrict => {
+  export const accepts = (a: any): a is BlankRestrict => {
     return all.includes(a)
   }
 }

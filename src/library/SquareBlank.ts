@@ -11,12 +11,12 @@ type SquareBlank = {
 
 namespace SquareBlank {
 
-  export const admits = (a: any): a is SquareBlank => {
+  export const accepts = (a: any): a is SquareBlank => {
     return !!a
-      && BlankRestrict.admits(a.left)
-      && BlankRestrict.admits(a.top)
-      && BlankRestrict.admits(a.right)
-      && BlankRestrict.admits(a.bottom)
+      && BlankRestrict.accepts(a.left)
+      && BlankRestrict.accepts(a.top)
+      && BlankRestrict.accepts(a.right)
+      && BlankRestrict.accepts(a.bottom)
   };
 
   // export const from = (
@@ -26,7 +26,7 @@ namespace SquareBlank {
   //   bottom: boolean
   // ): Square => {
   //   const square = { left, top, right, bottom };
-  //   if (_admits(square)) return square;
+  //   if (_accepts(square)) return square;
   //   // throw new ApplicationError(`Failed to create a square from: ${ square }`)
   //   throw new Error(`Failed to create a square from: ${square}`);
   // };

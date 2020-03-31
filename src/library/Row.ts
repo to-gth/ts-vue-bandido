@@ -7,14 +7,14 @@ type Row = Array<Square | SquareBlank>
 
 namespace Row {
 
-  // const admits = (a: any[]): a is Square => {
+  // const accepts = (a: any[]): a is Square => {
   //   const some = a.left || a.top || a.right || a.bottom;
   //   return some;
   // };
 
   // export const from = (): Row => {
   //   const row = []
-  //   if (_admits(square)) return square;
+  //   if (_accepts(square)) return square;
   //   // throw new ApplicationError(`Failed to create a square from: ${ square }`)
   //   throw new Error(`Failed to create a square from: ${square}`);
   // };

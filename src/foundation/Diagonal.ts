@@ -10,15 +10,15 @@ type Diagonal = {
 
 namespace Diagonal {
 
-  export const admits = (a: any): a is Diagonal => {
+  export const accepts = (a: any): a is Diagonal => {
     return true
-      && Int.admits(a.left)
-      && Int.admits(a.top)
+      && Int.accepts(a.left)
+      && Int.accepts(a.top)
   }
 
   export const from = (left: number, top: number): Diagonal => {
     const point = { left, top }
-    if (admits(point)) return point
+    if (accepts(point)) return point
     throw new ApplicationError(`Failed to create a point from: ${left}, ${top}`)
   }
 

@@ -13,17 +13,17 @@ type AddressMargins = {
 
 namespace AddressMargins {
 
-  const admits = (a: any): a is AddressMargins => {
+  const accepts = (a: any): a is AddressMargins => {
     return !!a
-      && Address.admits(a.lefttop)
-      && Address.admits(a.rightbottom)
+      && Address.accepts(a.lefttop)
+      && Address.accepts(a.rightbottom)
       && a.lefttop.left <= 0
       && a.lefttop.top <= 0
   }
 
   export const from = (lefttop: Point, rightbottom: Point): AddressMargins => {
     const margins = { lefttop, rightbottom }
-    if (admits(margins)) return margins
+    if (accepts(margins)) return margins
     throw new ApplicationError(`Failed to create an address-margin from: ${ margins }`)
   }
 }
@@ -40,7 +40,7 @@ namespace AddressMargins {
     lefttop.left === 
 
 
-    // if (_admits(square)) return square;
+    // if (_accepts(square)) return square;
     // // throw new ApplicationError(`Failed to create a square from: ${ square }`)
     // throw new Error(`Failed to create a square from: ${square}`);
   };

@@ -15,7 +15,7 @@ namespace Area {
     Area.LT,
   ]
 
-  export const admits = (a: any): a is Area => {
+  export const accepts = (a: any): a is Area => {
     return all.includes(a)
   }
 }

@@ -9,15 +9,15 @@ type Square = SquareFilled | SquareBlank
 
 // namespace Square {
 
-//   export const admits = (a: any): a is Square => {
-//     if (!Direction.admits(a.direction)) return false
-//     if (!Limb.admits(a.limb)) return false
+//   export const accepts = (a: any): a is Square => {
+//     if (!Direction.accepts(a.direction)) return false
+//     if (!Limb.accepts(a.limb)) return false
 //     return true
 //   };
 
 //   export const from = (side: Direction, limb: Limb): Square => {
 //     const square = { side, limb };
-//     if (admits(square)) return square;
+//     if (accepts(square)) return square;
 //     // throw new ApplicationError(`Failed to create a square from: ${ square }`)
 //     throw new Error(`Failed to create a square from: ${square}`);
 //   };

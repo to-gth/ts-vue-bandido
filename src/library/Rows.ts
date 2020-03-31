@@ -13,12 +13,13 @@ import LimbDirection from './LimbDirection';
 import SquareBlank from './SquareBlank';
 import Direction from '@/foundation/Direction';
 import RowsExpandor from './RowsExtendor';
+import AddressMargins from './AddressMargins';
 
 type Rows = Row[]
 
 namespace Rows {
 
-  const admits = (a: Row[]): a is Rows => {
+  const accepts = (a: Row[]): a is Rows => {
     return true
       && a.length >= 1
       && Arr.isRectangle(a)
@@ -26,7 +27,7 @@ namespace Rows {
 
   // export const from = (): Rows => {
   //   const row = []
-  //   if (_admits(square)) return square;
+  //   if (_accepts(square)) return square;
   //   // throw new ApplicationError(`Failed to create a square from: ${ square }`)
   //   throw new Error(`Failed to create a square from: ${square}`);
   // };
@@ -81,7 +82,7 @@ namespace Rows {
 
     const center = Square.at(address, rows)
     if (!center) throw new ApplicationError(`Failed to get a square at: ${address} in ${rows}`)
-    if (!SquareFilled.admits(center)) return
+    if (!SquareFilled.accepts(center)) return
 
 
 
@@ -89,7 +90,7 @@ namespace Rows {
 
       const shifted = Address.shiftedToNext(direction, address)
       const square = Square.at(shifted, rows)
-      if (!SquareBlank.admits(square)) return
+      if (!SquareBlank.accepts(square)) return
 
       if (LimbDirection.isIncludedIn(center, direction)) {
         const opposite = Direction.oppositeOf(direction)
@@ -108,7 +109,7 @@ namespace Rows {
     directions .forEach((direction) => {
       const shifted = Address.shiftedToNext(direction, address)
       const square = Square.at(shifted, rows)
-      if (!SquareBlank.admits(square)) return
+      if (!SquareBlank.accepts(square)) return
 
       const opposite = Direction.oppositeOf(direction)
       const added = SquareBlank. square
@@ -119,7 +120,8 @@ namespace Rows {
 
     const { primary, secondary } = SquareAddressed.primaryAndSecondaryFrom(card, address)
 
-    const expandor = RowsExpandor.from(rows, card, address)
+    const margins = AddressMargins.by(card, address, rows)
+    const offset = margins.lefttop
 
 
 
