@@ -3,7 +3,8 @@ import Row from './Row';
 import Address from './Address';
 import Card from './Card';
 import SquareAddressed from './SquareAddressed';
-import Arr from '@/foundation/Arr';
+import SquareAddressedCarded from './SquareAddressedCarded';
+import Arr from '@/foundation/Matrix';
 import Int from 'ts-number/src/Int';
 import Square from './Square';
 import Limb from './Limb';
@@ -13,7 +14,8 @@ import LimbDirection from './LimbDirection';
 import SquareBlank from './SquareBlank';
 import Direction from '@/foundation/Direction';
 import RowsExpandor from './RowsExtendor';
-import AddressMargins from './AddressMargins';
+import MarginsDiagonal from './MarginsDiagonal';
+import Vector from '@/foundation/Vector';
 
 type Rows = Row[]
 
@@ -52,17 +54,6 @@ namespace rows {
 }
 
 namespace Rows {
-
-  const blankFrom = (leftTop: Address, rightBottom: Address): Rows => {
-    const width = Int.from(rightBottom.left - leftTop.left)
-    const height = Int.from(rightBottom.top - leftTop.top)
-    return Arr.rectangleOf(width, height)
-  }
-  const extendedBy = (leftTop: Address, rightBottom: Address, rows: Rows): Rows => {
-    const extended = blankFrom(leftTop, rightBottom)
-    const diff = Address.oppositeOf(leftTop)
-    return Arr.pastedAt(diff, extended, rows)
-  }
 
   const _attach = (squareAddressed: SquareAddressed, diff: Address, rows: Rows): void => {
     const { address, square } = squareAddressed
@@ -116,13 +107,46 @@ namespace Rows {
     })
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  const blankFrom = (margins: MarginsDiagonal): Rows => {
+    const { lefttop, rightbottom } = margins
+    const width = Int.from(rightbottom.x - lefttop.x)
+    const height = Int.from(rightBottom.top - leftTop.top)
+    return Arr.rectangleOf(width, height)
+  }
+
+  const expandedBy = (margins: MarginsDiagonal, rows: Rows): Rows => {
+    const extended = blankFrom(margins)
+    const diff = Address.oppositeOf(leftTop)
+    return Arr.pastedAt(diff, extended, rows)
+  }
+
   export const cardAttachedAt = (address: Address, card: Card, rows: Rows): Rows => {
 
-    const { primary, secondary } = SquareAddressed.primaryAndSecondaryFrom(card, address)
+    const margins = MarginsDiagonal.by(card, address, rows)
 
-    const margins = AddressMargins.by(card, address, rows)
-    const offset = margins.lefttop
+    const expanding = expandedBy(margins, rows)
 
+    const carded = SquareAddressedCarded.of(card, address)
+    const corrected = SquareAddressedCarded.correctedBy(margins.lefttop, carded)
+    const attachedOne = attaching(corrected.primary, rows)
+    const attachedTwo = attaching(corrected.secondary, rows)
 
 
 
@@ -133,11 +157,6 @@ namespace Rows {
 
 
     
-    const { leftTop, rightBottom } = Address.outermostIn(rows, primary.address, secondary.address)
-
-    const extended = extendedBy(leftTop, rightBottom, rows)
-    _attach(primary, leftTop, extended)
-    _attach(secondary, leftTop, extended)
 
     const margined = _addMarginTo(extended)
 
@@ -154,7 +173,11 @@ namespace Rows {
 
 namespace Rows {
 
-  const blank = (): Rows => [Row.blank()]
+  export const blank = (): Rows => [Row.blank()]
+}
+
+namespace Rows {
+
 
   export const initialized = (): Rows => {
 
