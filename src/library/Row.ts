@@ -2,6 +2,7 @@
 import Square from './Square';
 import Rows from './Rows';
 import SquareBlank from './SquareBlank';
+import ApplicationError from 'ts-application-error';
 
 type Row = Array<Square | SquareBlank>
 
@@ -27,23 +28,28 @@ namespace Row {
     return row ? row.slice() : null
   }
 
-  export const attachedOf = (squareAddressed: SquareAddressed, rows: Rows): Row => {
+  // export const attachedOf = (squareAddressed: SquareAddressed, rows: Rows): Row => {
 
-    const { left, top } =  squareAddressed.address.point
-    const row = (at(top, rows) || []).slice()
-    row[left] = squareAddressed
-    return row
-  }
+  //   const { left, top } =  squareAddressed.address.point
+  //   const row = (at(top, rows) || []).slice()
+  //   row[left] = squareAddressed
+  //   return row
+  // }
 }
 
 namespace Row {
 
-  export const blank = (): Row => []
+  export const blank = (length): Row => {
+    return [...Array(length)].map(SquareBlank.blank)
+  }
 
-  export const isBlank = (row: Row): boolean => {
-    row.every((square) => {
-      Square.isBlank(square)
-    })
+  const isBlank = (row: Row): boolean => {
+    return row.every(SquareBlank.accepts)
+  }
+  export const isBlankAt = (top: number, rows: Rows): boolean => {
+    const row = at(top, rows)
+    if (!row) throw new ApplicationError(`Failed to get a row at: ${ top }`)
+    return isBlank(row)
   }
 
 }

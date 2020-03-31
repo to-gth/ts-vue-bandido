@@ -6,26 +6,21 @@ import SquareAddressed from './SquareAddressed';
 import SquareAddressedCarded from './SquareAddressedCarded';
 import Arr from '@/foundation/Matrix';
 import Int from 'ts-number/src/Int';
-import Square from './Square';
-import Limb from './Limb';
 import ApplicationError from 'ts-application-error';
-import SquareFilled from './SquareFilled';
-import LimbDirection from './LimbDirection';
-import SquareBlank from './SquareBlank';
-import Direction from '@/foundation/Direction';
-import RowsExpandor from './RowsExtendor';
 import MarginsDiagonal from './MarginsDiagonal';
-import Vector from '@/foundation/Vector';
+import Marginor from './Marginor';
+import Marginer from './Marginer';
+import Fillabler from './Fillabler';
 
 type Rows = Row[]
 
 namespace Rows {
 
-  const accepts = (a: Row[]): a is Rows => {
-    return true
-      && a.length >= 1
-      && Arr.isRectangle(a)
-  };
+  // const accepts = (a: Row[]): a is Rows => {
+  //   return true
+  //     && a.length >= 1
+  //     && Arr.isRectangle(a)
+  // };
 
   // export const from = (): Rows => {
   //   const row = []
@@ -36,93 +31,6 @@ namespace Rows {
 }
 
 namespace Rows {
-
-  export const widthOf = (rows: Rows): number => rows[0].length
-  export const heightOf = (rows: Rows): number => rows.length
-}
-
-namespace rows {
-
-  const rowAttachedAt = (top: Int, row: Row, rows: Rows): Rows => {
-
-  }
-}
-
-namespace rows {
-
-  const squareAttached = (): Rows => { }
-}
-
-namespace Rows {
-
-  const _attach = (squareAddressed: SquareAddressed, diff: Address, rows: Rows): void => {
-    const { address, square } = squareAddressed
-    const opposite = Address.oppositeOf(diff)
-    const shifted = Address.shiftedBy(opposite, address)
-    rows[shifted.top][shifted.left] = square
-  }
-
-  const _addMarginTo = (rows: Rows): Rows => {
-    rows.slice(-1)
-  }
-
-
-
-
-  const putFillableAround = (address: Address, rows: Rows): void => {
-
-    const center = Square.at(address, rows)
-    if (!center) throw new ApplicationError(`Failed to get a square at: ${address} in ${rows}`)
-    if (!SquareFilled.accepts(center)) return
-
-
-
-    LimbDirection.sAllFrom(center.side).forEach((direction) => {
-
-      const shifted = Address.shiftedToNext(direction, address)
-      const square = Square.at(shifted, rows)
-      if (!SquareBlank.accepts(square)) return
-
-      if (LimbDirection.isIncludedIn(center, direction)) {
-        const opposite = Direction.oppositeOf(direction)
-        const added = SquareBlank.OpenAddedOn(opposite, square)
-        const addressed = SquareAddressed.from(shifted, added)
-        const row = Row.attachedOf(addressed, rows)
-      }
-    })
-
-
-
-
-    const limb = center.limb
-    const directions = LimbDirection.sFrom(center)
-
-    directions .forEach((direction) => {
-      const shifted = Address.shiftedToNext(direction, address)
-      const square = Square.at(shifted, rows)
-      if (!SquareBlank.accepts(square)) return
-
-      const opposite = Direction.oppositeOf(direction)
-      const added = SquareBlank. square
-    })
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   const blankFrom = (margins: MarginsDiagonal): Rows => {
     const { lefttop, rightbottom } = margins
@@ -137,53 +45,49 @@ namespace Rows {
     return Arr.pastedAt(diff, extended, rows)
   }
 
+  const attaching = (addressed: SquareAddressed, rows: Rows): void => {
+    const { address, squareFilled } = addressed
+    const { left, top } = address
+    const row = Row.at(top, rows)
+    if (!row) throw new ApplicationError(`Failed to get a row at: ${ top }`)
+    row[left] = squareFilled
+  }
+
   export const cardAttachedAt = (address: Address, card: Card, rows: Rows): Rows => {
 
     const margins = MarginsDiagonal.by(card, address, rows)
 
-    const expanding = expandedBy(margins, rows)
+    const expanded = expandedBy(margins, rows)
 
     const carded = SquareAddressedCarded.of(card, address)
     const corrected = SquareAddressedCarded.correctedBy(margins.lefttop, carded)
-    const attachedOne = attaching(corrected.primary, rows)
-    const attachedTwo = attaching(corrected.secondary, rows)
+    attaching(corrected.primary, expanded)
+    attaching(corrected.secondary, expanded)
 
+    const marginor = Marginor.fromBy(expanded)
+    Marginer.doing(expanded, marginor)
 
+    const recorrected = SquareAddressedCarded.correctedWith(marginor, corrected)
+    Fillabler.doing(expanded, recorrected)
 
-
-
-
-
-
-
-    
-
-    const margined = _addMarginTo(extended)
-
-
-    const opposite = Address.oppositeOf(leftTop)
-    const shiftedP = Address.shiftedBy(opposite, primary.address)
-    const shiftedS = Address.shiftedBy(opposite, secondary.address)
-    putFillableAround(shiftedP, extended)
-    putFillableAround(shiftedS, extended)
-
-    return extended
+    return expanded
   }
 }
 
 namespace Rows {
 
-  export const blank = (): Rows => [Row.blank()]
+  export const blank = (width: number, height: number): Rows => {
+    return [...Array(height)].fill(width).map(Row.blank)
+  }
 }
 
 namespace Rows {
-
 
   export const initialized = (): Rows => {
 
     const card = Card.first()
     const address = Address.zero
-    const rows = blank()
+    const rows = blank(0, 0)
     return cardAttachedAt(address, card, rows)
   }
 }

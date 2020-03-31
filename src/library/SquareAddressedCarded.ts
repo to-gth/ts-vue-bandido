@@ -4,6 +4,7 @@ import Card from './Card';
 import SquareAddressed from './SquareAddressed';
 import AddressMargins from './MarginsDiagonal';
 import Vector from '@/foundation/Vector';
+import Marginor from './Marginor';
 
 type SquareAddressedCarded = {
   primary: SquareAddressed;
@@ -40,6 +41,15 @@ namespace SquareAddressedCarded {
   export const correctedBy = (margin: Vector, carded: SquareAddressedCarded): SquareAddressedCarded => {
 
     const offset = Vector.reversed(margin)
+    const { primary, secondary } = carded
+    const shiftedPrimary = SquareAddressed.shiftedBy(offset, primary)
+    const shiftedSecondary = SquareAddressed.shiftedBy(offset, secondary)
+    return from(shiftedPrimary, shiftedSecondary)
+  }
+
+  export const correctedWith = (marginor: Marginor, carded: SquareAddressedCarded): SquareAddressedCarded => {
+
+    const offset = Vector.from(marginor.left, marginor.top)
     const { primary, secondary } = carded
     const shiftedPrimary = SquareAddressed.shiftedBy(offset, primary)
     const shiftedSecondary = SquareAddressed.shiftedBy(offset, secondary)
