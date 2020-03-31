@@ -30,6 +30,15 @@ namespace SquareBlank {
   //   // throw new ApplicationError(`Failed to create a square from: ${ square }`)
   //   throw new Error(`Failed to create a square from: ${square}`);
   // };
+
+  export const blank = (): SquareBlank => {
+    const left = BlankRestrict.Free
+    const top = BlankRestrict.Free
+    const right = BlankRestrict.Free
+    const bottom = BlankRestrict.Free
+    const square = { left, top, right, bottom };
+    return square
+  }
 }
 
 namespace SquareBlank {
