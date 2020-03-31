@@ -2,8 +2,8 @@
 import ApplicationError from 'ts-application-error'
 
 type Vector = {
-  x: number
-  y: number
+  x: number;
+  y: number;
 }
 
 namespace Vector {

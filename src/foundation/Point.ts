@@ -7,8 +7,8 @@ import Real from 'ts-number/src/Real'
 
 Real.admits
 type Point = {
-  left: Int
-  top: Int
+  left: Int;
+  top: Int;
 }
 
 namespace Point {

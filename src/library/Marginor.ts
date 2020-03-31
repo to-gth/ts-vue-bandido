@@ -8,10 +8,10 @@ import Card from './Card';
 import AddressCarded from './AddressCarded';
 
 type Marginor = {
-  left: Int
-  top: Int
-  right: Int
-  bottom: Int
+  left: Int;
+  top: Int;
+  right: Int;
+  bottom: Int;
 };
 
 namespace Marginor {

@@ -2,8 +2,8 @@ import Address from './Address';
 import Card from './Card';
 
 type AddressCarded = {
-  primary: Address,
-  secondary: Address,
+  primary: Address;
+  secondary: Address;
 };
 
 namespace AddressCarded {

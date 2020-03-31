@@ -4,8 +4,8 @@ import { Int } from 'ts-number'
 
 
 type Size = {
-  width: Int
-  height: Int
+  width: Int;
+  height: Int;
 }
 
 namespace Size {
