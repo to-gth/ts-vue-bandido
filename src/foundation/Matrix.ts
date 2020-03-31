@@ -13,7 +13,7 @@ namespace Matrix {
     return isRectangle(a)
   }
 
-  export const from = (width: Int, height: Int): Matrix => {
+  export const from = (width: number, height: number): Matrix => {
     return [...Array(height)].map(() => [...Array(width)])
   }
 }
@@ -26,6 +26,19 @@ namespace Matrix {
       base[top + i].splice(left, row.length, ...row)
     })
     return base
+  }
+}
+
+namespace Matrix {
+
+  const rowAt = <T>(r: number, columns: T[][]): T[] => {
+    const row = columns.map((column: T[]): T => column[r])
+    return row
+  }
+
+  export const transposed = <T>(columns: T[][]): T[][] => {
+    const rows = columns[0].map((_, r): T[] => rowAt(r, columns))
+    return rows
   }
 }
 
