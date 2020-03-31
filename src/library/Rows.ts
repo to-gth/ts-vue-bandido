@@ -12,6 +12,7 @@ import SquareFilled from './SquareFilled';
 import LimbDirection from './LimbDirection';
 import SquareBlank from './SquareBlank';
 import Direction from '@/foundation/Direction';
+import RowsExpandor from './RowsExtendor';
 
 type Rows = Row[]
 
@@ -117,6 +118,19 @@ namespace Rows {
   export const cardAttachedAt = (address: Address, card: Card, rows: Rows): Rows => {
 
     const { primary, secondary } = SquareAddressed.primaryAndSecondaryFrom(card, address)
+
+    const expandor = RowsExpandor.from(rows, card, address)
+
+
+
+
+
+
+
+
+
+
+    
     const { leftTop, rightBottom } = Address.outermostIn(rows, primary.address, secondary.address)
 
     const extended = extendedBy(leftTop, rightBottom, rows)

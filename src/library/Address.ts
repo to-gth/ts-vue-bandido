@@ -3,6 +3,7 @@ import Point from '@/foundation/Point'
 import Direction from '@/foundation/Direction'
 import ApplicationError from 'ts-application-error';
 import Rows from './Rows';
+import AddressCarded from './AddressCarded';
 
 type Address = Point;
 
@@ -35,25 +36,6 @@ namespace Address {
   export const shiftedToNext = (direction: Direction, address: Address): Address => {
     const diff = diffOf(direction)
     return shiftedBy(diff, address)
-  }
-}
-
-namespace Address {
-
-  export const outermostIn = (rows: Rows, primary: Address, secondary: Address): { leftTop: Address, rightBottom: Address } => {
-
-    const lefts = [primary.left, secondary.left]
-    const tops = [primary.top, secondary.top]
-
-    const minLeft = Math.min(...lefts, 0)
-    const minTop = Math.min(...tops, 0)
-    const leftTop = Address.from(minLeft, minTop)
-
-    const maxLeft = Math.max(...lefts, Rows.widthOf(rows))
-    const maxTop = Math.max(...tops, Rows.heightOf(rows))
-    const rightBottom = Address.from(maxLeft, maxTop)
-
-    return { leftTop, rightBottom }
   }
 }
 
