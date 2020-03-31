@@ -1,9 +1,11 @@
 import ApplicationError from 'ts-application-error';
 import Rows from './Rows';
 import Row from './Row';
-import Vector from '@/foundation/Vector';
 import Matrix from '@/foundation/Matrix';
 import Int from 'ts-number/src/Int';
+import Address from './Address';
+import Card from './Card';
+import AddressCarded from './AddressCarded';
 
 type Marginor = {
   left: Int
@@ -50,6 +52,27 @@ namespace Marginor {
     const transposed = Matrix.transposed(rows)
     const left = topFor(transposed)
     const right = bottomFor(transposed)
+    return from(left, top, right, bottom)
+  };
+}
+
+namespace Marginor {
+
+  export const fromWith = (card: Card, address: Address, rows: Rows): Marginor => {
+
+    const carded = AddressCarded.from(card, address)
+    const { primary, secondary } = carded
+
+    const lefts = [primary.left, secondary.left]
+    const tops = [primary.top, secondary.top]
+
+    const left = Math.min(...lefts, 0)
+    const top = Math.min(...tops, 0)
+
+    const { width, height } = Matrix.sizeOf(rows)
+    const right = Math.max(...lefts, width) - width
+    const bottom = Math.max(...tops, height) - height
+
     return from(left, top, right, bottom)
   };
 }
