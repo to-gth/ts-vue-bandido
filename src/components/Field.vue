@@ -1,37 +1,37 @@
 <template>
 <div id="field">
-  <Row v-for="(row, r) of rows" :key="r" :squares="row" />
+  <Row v-for="(row, r) of rows" :key="r" :row="row" />
 </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import Row from "./Row.vue";
-import Square from "@/library/Square.ts";
+import Rows from "@/library/Rows.ts";
 
 export default Vue.extend({
-name: "Field",
-props: {},
-components: {
-  Row
-},
-computed: {
-  rows(): Square[][] {
-    return [this.row(), this.row(), this.row(), this.row()];
+  name: "Field",
+  props: {},
+  components: {
+    Row
+  },
+  computed: {
+    rows(): Rows {
+      return this.$store.state.rows
+    }
+  },
+  methods: {
+    // row(): Square[] {
+    //   return [
+    //     Square.from(false, true, false, false),
+    //     Square.from(false, false, true, false),
+    //     Square.from(false, true, false, false),
+    //     Square.from(false, false, true, false),
+    //     Square.from(false, true, false, false),
+    //     Square.from(false, false, true, false)
+    //   ];
+    // }
   }
-},
-methods: {
-  row(): Square[] {
-    return [
-      Square.from(false, true, false, false),
-      Square.from(false, false, true, false),
-      Square.from(false, true, false, false),
-      Square.from(false, false, true, false),
-      Square.from(false, true, false, false),
-      Square.from(false, false, true, false)
-    ];
-  }
-}
 });
 </script>
 

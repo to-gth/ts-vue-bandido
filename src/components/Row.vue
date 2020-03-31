@@ -1,8 +1,8 @@
 <template>
   <div class="row">
-    <SquareVue
+    <Square
       class="square"
-      v-for="(square, i) of squares"
+      v-for="(square, i) of row"
       :key="i"
       :square="square"
     />
@@ -11,19 +11,19 @@
 
 <script lang="ts">
 import Vue from "vue";
-import SquareVue from "./Square.vue";
+import Square from "./Square.vue";
+import Row from "@/library/Row.ts";
 
 export default Vue.extend({
   name: "Row",
   props: {
-    squares: Array
+    row: Array
   },
   components: {
-    SquareVue
+    Square
   },
   mounted() {
-    
-    console.log("squares", this.squares);
+    console.log("squares", this.row);
   }
 });
 </script>
