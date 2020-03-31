@@ -36,7 +36,7 @@ namespace LimbDirection {
 namespace LimbDirection {
 
   export const isIncludedIn = (square: SquareFilled, direction: Direction): boolean => {
-    sFrom(square).includes(direction)
+    return sFrom(square).includes(direction)
   }
 }
 

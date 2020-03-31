@@ -38,7 +38,7 @@ namespace Row {
 
 namespace Row {
 
-  export const blank = (length): Row => {
+  export const blank = (length: number): Row => {
     return [...Array(length)].map(SquareBlank.blank)
   }
 
