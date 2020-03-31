@@ -1,81 +1,40 @@
-import ApplicationError from 'ts-application-error';
 import Rows from './Rows';
-import Row from './Row';
-import Vector from '@/foundation/Vector';
-import Matrix from '@/foundation/Matrix';
-import Int from 'ts-number/src/Int';
+import SquareAddressedCarded from './SquareAddressedCarded';
+import SquareAddressed from './SquareAddressed';
+import LimbDirection from './LimbDirection';
+import Address from './Address';
+import Square from './Square';
+import SquareBlank from './SquareBlank';
+import Direction from '@/foundation/Direction';
+import Attacher from './Attacher';
+import BlankRestrict from './BlankRestrict';
 
 namespace Fillabler {
 
-  const marginFor = (rows: Rows, outermost: number, secondmost: number): number => {
-    return Row.isBlankAt(secondmost, rows) ? 0
-     : Row.isBlankAt(outermost, rows) ? 1
-     : 2
+  const doingAround = (addressed: SquareAddressed, rows: Rows): void => {
+
+    const center = addressed.squareFilled
+
+    LimbDirection
+      .sAllFrom(center.side)
+      .forEach((direction) => {
+
+        const shifted = Address.shiftedToNext(direction, addressed.address)
+        const square = Square.at(shifted, rows)
+        if (!SquareBlank.accepts(square)) return
+
+        const restrict = BlankRestrict.whichFor(direction, center)
+        const opposite = Direction.oppositeOf(direction)
+        const overwritten = SquareBlank.overwrittenOn(opposite, restrict, square)
+        Attacher.doingAt(shifted, overwritten, rows)
+      })
   }
-  const topFor = (rows: Rows): number => {
-    return marginFor(rows, 0, 1)
+
+  export const doing = (rows: Rows, carded: SquareAddressedCarded): void => {
+
+    doingAround(carded.primary, rows)
+    doingAround(carded.secondary, rows)
   }
-  const bottomFor = (rows: Rows): number => {
-    return marginFor(rows, -1, -2)
-  }
-  export const fromBy = (rows: Rows): Fillabler => {
-    const top = topFor(rows)
-    const bottom = bottomFor(rows)
-    const transposed = Matrix.transposed(rows)
-    const left = topFor(transposed)
-    const right = bottomFor(transposed)
-    return from(left, top, right, bottom)
-  };
 }
 
 export default Fillabler;
-
-  
-  const fillabling = (rows: Rows, carded: SquareAddressedCarded): void => {
-
-    putFillableAround(shiftedP, extended)
-    putFillableAround(shiftedS, extended)
-
-    return extended
-  }
-
-
-
-
-  const putFillableAround = (address: Address, rows: Rows): void => {
-
-    const center = Square.at(address, rows)
-    if (!center) throw new ApplicationError(`Failed to get a square at: ${address} in ${rows}`)
-    if (!SquareFilled.accepts(center)) return
-
-
-
-    LimbDirection.sAllFrom(center.side).forEach((direction) => {
-
-      const shifted = Address.shiftedToNext(direction, address)
-      const square = Square.at(shifted, rows)
-      if (!SquareBlank.accepts(square)) return
-
-      if (LimbDirection.isIncludedIn(center, direction)) {
-        const opposite = Direction.oppositeOf(direction)
-        const added = SquareBlank.OpenAddedOn(opposite, square)
-        const addressed = SquareAddressed.from(shifted, added)
-        const row = Row.attachedOf(addressed, rows)
-      }
-    })
-
-
-
-
-    const limb = center.limb
-    const directions = LimbDirection.sFrom(center)
-
-    directions .forEach((direction) => {
-      const shifted = Address.shiftedToNext(direction, address)
-      const square = Square.at(shifted, rows)
-      if (!SquareBlank.accepts(square)) return
-
-      const opposite = Direction.oppositeOf(direction)
-      const added = SquareBlank. square
-    })
-  }

@@ -1,18 +1,47 @@
 import ApplicationError from 'ts-application-error';
 import Rows from './Rows';
 import Row from './Row';
-import Vector from '@/foundation/Vector';
-import Matrix from '@/foundation/Matrix';
-import Int from 'ts-number/src/Int';
+import SquareAddressedCarded from './SquareAddressedCarded';
+import SquareAddressed from './SquareAddressed';
+import Address from './Address';
+import Square from './Square';
 
 namespace Attacher {
 
-  const _attach = (squareAddressed: SquareAddressed, diff: Address, rows: Rows): void => {
-    const { address, square } = squareAddressed
-    const opposite = Address.oppositeOf(diff)
-    const shifted = Address.shiftedBy(opposite, address)
-    rows[shifted.top][shifted.left] = square
+  export const doingAt = (address: Address, square: Square, rows: Rows): void => {
+    const { top, left } = address
+    const row = Row.at(top, rows)
+    if (!row) throw new ApplicationError(`Failed to get a row at: ${ top }`)
+    const clone = {...square}
+    row[left] = clone
+  }
+
+  const doingOf = (addressed: SquareAddressed, rows: Rows): void => {
+    const { address, squareFilled } = addressed
+    doingAt(address, squareFilled, rows)
+  }
+  export const doing = (carded: SquareAddressedCarded, rows: Rows): void => {
+    doingOf(carded.primary, rows)
+    doingOf(carded.secondary, rows)
   }
 }
+
+namespace Attacher {
+
+  export const doingFrom = (lefttop: Address, base: any[][], rect: any[][]): any[][] => {
+    const { left, top } = lefttop
+    rect.forEach((row, i) => {
+      const cloned = Row.clonedFrom(row)
+      base[top + i].splice(left, cloned.length, ...cloned)
+    })
+    return base
+  }
+}
+// namespace Attacher {
+
+//   export const doingAt = (address: Address, blank: SquareBlank, rows: Rows): void => {
+
+//     attachingAt(address, blank, rows)
+// }
 
 export default Attacher;

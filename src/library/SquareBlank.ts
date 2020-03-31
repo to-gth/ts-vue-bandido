@@ -53,21 +53,22 @@ namespace SquareBlank {
     return directionNames[direction]
   }
 
-  export const overwrittenOn = (directionName: string, restrict: BlankRestrict, square: SquareBlank): SquareBlank => {
-    return {...square, [directionName]: restrict}
+  export const overwrittenOn = (direction: Direction, restrict: BlankRestrict, blank: SquareBlank): SquareBlank => {
+    const directionName = directionNameFor(direction)
+    return {...blank, [directionName]: restrict}
   }
-  export const FreeAddedOn = (direction: Direction, square: SquareBlank): SquareBlank => {
-    const name = directionNameFor(direction)
-    return overwrittenOn(name, BlankRestrict.Free, square)
-  }
-  export const OpenAddedOn = (direction: Direction, square: SquareBlank): SquareBlank => {
-    const name = directionNameFor(direction)
-    return overwrittenOn(name, BlankRestrict.Open, square)
-  }
-  export const CloseAddedOn = (direction: Direction, square: SquareBlank): SquareBlank => {
-    const name = directionNameFor(direction)
-    return overwrittenOn(name, BlankRestrict.Close, square)
-  }
+  // export const freeAddedOn = (direction: Direction, square: SquareBlank): SquareBlank => {
+  //   const name = directionNameFor(direction)
+  //   return overwrittenOn(name, BlankRestrict.Free, square)
+  // }
+  // export const openAddedOn = (direction: Direction, square: SquareBlank): SquareBlank => {
+  //   const name = directionNameFor(direction)
+  //   return overwrittenOn(name, BlankRestrict.Open, square)
+  // }
+  // export const closeAddedOn = (direction: Direction, square: SquareBlank): SquareBlank => {
+  //   const name = directionNameFor(direction)
+  //   return overwrittenOn(name, BlankRestrict.Close, square)
+  // }
 }
 
 export default SquareBlank;

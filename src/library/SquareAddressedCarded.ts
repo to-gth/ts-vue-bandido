@@ -38,10 +38,12 @@ namespace SquareAddressedCarded {
 
 namespace SquareAddressedCarded {
 
-  export const correctedBy = (margin: Vector, carded: SquareAddressedCarded): SquareAddressedCarded => {
+  export const correctedBy = (marginor: Marginor, carded: SquareAddressedCarded): SquareAddressedCarded => {
 
-    const offset = Vector.reversed(margin)
+    const { left, top } = marginor
+    const offset = Vector.from(-left, -top)
     const { primary, secondary } = carded
+
     const shiftedPrimary = SquareAddressed.shiftedBy(offset, primary)
     const shiftedSecondary = SquareAddressed.shiftedBy(offset, secondary)
     return from(shiftedPrimary, shiftedSecondary)
