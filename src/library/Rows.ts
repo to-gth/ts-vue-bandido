@@ -72,6 +72,14 @@ namespace Rows {
 export default Rows;
 
 
+
+
+// TODO
+// accepts() should also check if it margined
+
+
+
+
 // namespace Rows {
 
 //   const accepts = (a: Row[]): a is Rows => {
