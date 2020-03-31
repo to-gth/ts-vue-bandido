@@ -2,7 +2,6 @@
 import Address from './Address'
 import Card from './Card';
 import SquareAddressed from './SquareAddressed';
-import AddressMargins from './MarginsDiagonal';
 import Vector from '@/foundation/Vector';
 import Marginor from './Marginor';
 
