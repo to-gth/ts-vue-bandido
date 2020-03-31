@@ -31,4 +31,11 @@ namespace Square {
   }
 }
 
+namespace Square {
+
+  export const clonedFrom = (square: Square): Square => {
+    return {...square}
+  }
+}
+
 export default Square;
