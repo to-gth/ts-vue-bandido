@@ -1,12 +1,11 @@
 
 import Address from './Address'
-import Square from './Square';
 import Card from './Card';
 import Direction from '@/foundation/Direction';
 import Limb from './Limb';
 import SquareFilled from './SquareFilled';
-import Point from '@/foundation/Point';
 import Vector from '@/foundation/Vector';
+import Deadlocks from './Deadlocks';
 
 type SquareAddressed = {
   address: Address;
@@ -31,21 +30,23 @@ namespace SquareAddressed {
 
 namespace SquareAddressed {
 
-  const _from = (limb: Limb, address: Address, side: Direction): SquareAddressed => {
-    const square = SquareFilled.from(side, limb)
+  const fromBy = (side: Direction, limb: Limb, deadlocks: boolean, address: Address): SquareAddressed => {
+    const square = SquareFilled.from(side, limb, deadlocks)
     return from(address, square)
   }
   export const primaryFrom = (card: Card, address: Address): SquareAddressed => {
     const limb = card.primary
     const direction = card.direction
     const opposite = Direction.oppositeOf(direction)
-    return _from(limb, address, opposite)
+    const deadlocks = Deadlocks.onPrimaryOf(card)
+    return fromBy(opposite, limb, deadlocks, address)
   }
   export const secondaryFrom = (card: Card, address: Address): SquareAddressed => {
     const limb = card.secondary
     const side = card.direction
     const shifted = Address.shiftedToNext(side, address)
-    return _from(limb, shifted, side)
+    const deadlocks = Deadlocks.onSecondaryOf(card)
+    return fromBy(side, limb, deadlocks, shifted)
   }
 }
 
