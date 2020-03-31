@@ -1,5 +1,9 @@
 import SquareFilled from './SquareFilled'
 import LimbDirection from './LimbDirection'
+import SquareBlank from './SquareBlank'
+import Direction from '@/foundation/Direction'
+import Limb from './Limb'
+import ApplicationError from 'ts-application-error'
 
 enum BlankRestrict {
   Free,
@@ -22,11 +26,25 @@ namespace BlankRestrict {
 
 namespace BlankRestrict {
 
-  export const whichFor = (direction: LimbDirection, center: SquareFilled): BlankRestrict => {
+  export const correspondedFor = (direction: LimbDirection, center: SquareFilled): BlankRestrict => {
 
     return LimbDirection.isIncludedIn(center, direction)
       ? BlankRestrict.Open
       : BlankRestrict.Close
+  }
+}
+
+namespace BlankRestrict {
+
+  export const on = (direction: LimbDirection, blank: SquareBlank): BlankRestrict => {
+
+    switch (direction) {
+      case Direction.Up: return blank.top
+      case Direction.Down: return blank.bottom
+      case Direction.Left: return blank.left
+      case Direction.Right: return blank.right
+      default: throw new ApplicationError(`Failed to return a blank-restrict of: ${ direction }`)
+    }
   }
 }
 

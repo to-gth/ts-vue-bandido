@@ -23,7 +23,7 @@ namespace Fillabler {
         const square = Square.at(shifted, rows)
         if (!SquareBlank.accepts(square)) return
 
-        const restrict = BlankRestrict.whichFor(direction, center)
+        const restrict = BlankRestrict.correspondedFor(direction, center)
         const opposite = Direction.oppositeOf(direction)
         const overwritten = SquareBlank.overwrittenOn(opposite, restrict, square)
         Attacher.doingAt(shifted, overwritten, rows)
