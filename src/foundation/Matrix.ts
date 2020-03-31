@@ -1,5 +1,6 @@
 import Int from 'ts-number/src/Int'
 import Point from './Point'
+import Size from './Size'
 
 type Matrix = any[][]
 
@@ -20,12 +21,10 @@ namespace Matrix {
 
 namespace Matrix {
 
-  export const pastedAt = (leftTop: Point, base: any[][], rect: any[][]): any[][] => {
-    const { left, top } = leftTop
-    rect.forEach((row, i) => {
-      base[top + i].splice(left, row.length, ...row)
-    })
-    return base
+  export const sizeOf = (matrix: Matrix): Size => {
+    const width = matrix[0].length
+    const height = matrix.length
+    return Size.from(width, height)
   }
 }
 
