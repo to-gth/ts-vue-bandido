@@ -1,20 +1,20 @@
 <template>
-  <div class="square" :class='[side, limb]'>
-    <div
+  <div class="square" :class='[which, side, limb, deadlocks, restrict]'>
+    <!-- <div
       class="bit"
       v-for="(classname, i) of classnames"
       :key="i"
       :class="classname"
-    />
-    <!-- <div class="bit blank"></div>
-    <div class="bit fill"></div>
-    <div class="bit blank"></div>
-    <div class="bit fill"></div>
-    <div class="bit fill"></div>
-    <div class="bit fill"></div>
-    <div class="bit blank"></div>
-    <div class="bit fill"></div>
-    <div class="bit blank"></div> -->
+    /> -->
+    <div class="bit"></div>
+    <div class="bit"></div>
+    <div class="bit"></div>
+    <div class="bit"></div>
+    <div class="bit"></div>
+    <div class="bit"></div>
+    <div class="bit"></div>
+    <div class="bit"></div>
+    <div class="bit"></div>
   </div>
 </template>
 
@@ -25,7 +25,6 @@ import LimbDirection from '../library/LimbDirection';
 import Direction from '../foundation/Direction';
 import BlankRestrict from '../library/BlankRestrict';
 import SquareBlank from '../library/SquareBlank';
-import Limb from '../library/Limb';
 import Limbor from '../library/Limbor';
 
 export default Vue.extend({
@@ -41,13 +40,28 @@ export default Vue.extend({
     isBlank(): boolean {
       return !this.isFilled
     },
+    which(): string {
+      return 'square-' + (this.isFilled ? 'filled' : 'blank')
+    },
     side(): string {
-      if (this.isFilled) return  ''
+      if (this.isBlank) return  ''
       return 'side-' + LimbDirection.nameFor(this.square.side).toLowerCase()
     },
     limb(): string {
+      if (this.isBlank) return  ''
       const names = Limbor.namesFrom(this.square.limb)
-      return names.map((name) => 'limb-' + name).join(' ')
+      return names.map((name) => 'limb-' + name.toLowerCase()).join(' ')
+    },
+    deadlocks(): string {
+      if (this.isBlank) return  ''
+      return this.square.deadlocks ? 'deadlocks' : ''
+    },
+    restrict(): string {
+      if (this.isFilled) return  ''
+      return BlankRestrict
+        .namesFrom(this.square)
+        .map(name => 'restrict-' + name)
+        .join(' ')
     },
     // isFilled(): boolean {
     //   return SquareFilled.accepts(this.square)
@@ -120,29 +134,53 @@ export default Vue.extend({
   padding-bottom: 100%;
 }
 
-.wall {
-  background-color: brown;
+.square-filled .bit {
+  background-color: brown; /* .wall */
 }
-.deadlock {
+.square-blank .bit {
+  background-color: whitesmoke; /* .unfilled */
+}
+
+.side-left.limb-r .bit:nth-child(2),
+.side-top.limb-h .bit:nth-child(2),
+.side-right.limb-l .bit:nth-child(2),
+.side-bottom .bit:nth-child(2),
+
+.side-left.limb-h .bit:nth-child(4),
+.side-top.limb-l .bit:nth-child(4),
+.side-right .bit:nth-child(4),
+.side-bottom.limb-r .bit:nth-child(4),
+
+.side-left .bit:nth-child(6),
+.side-top.limb-r .bit:nth-child(6),
+.side-right.limb-h .bit:nth-child(6),
+.side-bottom.limb-l .bit:nth-child(6),
+
+.side-left.limb-l .bit:nth-child(8),
+.side-top .bit:nth-child(8),
+.side-right.limb-r .bit:nth-child(8),
+.side-bottom.limb-h .bit:nth-child(8),
+
+.square-filled .bit:nth-child(5) { /* .passage */
+  background-color: yellow;
+}
+
+.deadlocks .bit:nth-child(5) {
   background-color: orangered;
 }
-.unfilled {
-  background-color: whitesmoke;
-}
-.free {
-  background-color: whitesmoke;
-}
-.open {
+
+/* .free { background-color: whitesmoke; } */
+
+.restrict-top-open .bit:nth-child(2),
+.restrict-left-open .bit:nth-child(4),
+.restrict-right-open .bit:nth-child(6),
+.restrict-bottom-open .bit:nth-child(8) {
   background-color: orange;
 }
-.close {
+.restrict-top-close .bit:nth-child(2),
+.restrict-left-close .bit:nth-child(4),
+.restrict-right-close .bit:nth-child(6),
+.restrict-bottom-close .bit:nth-child(8) {
   background-color: grey;
-}
-.side-left .bit:nth-child(6),
-.side-top .bit:nth-child(8),
-.side-right .bit:nth-child(4),
-.side-bottom .bit:nth-child(2),
-.passage {
-  background-color: yellow;
 }
 </style>
