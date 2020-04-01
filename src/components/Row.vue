@@ -12,7 +12,6 @@
 <script lang="ts">
 import Vue from "vue";
 import Square from "./Square.vue";
-import Row from "@/library/Row.ts";
 
 export default Vue.extend({
   name: "Row",
@@ -22,9 +21,7 @@ export default Vue.extend({
   components: {
     Square
   },
-  mounted() {
-    console.log("squares", this.row);
-  }
+  // mounted() {}
 });
 </script>
 
