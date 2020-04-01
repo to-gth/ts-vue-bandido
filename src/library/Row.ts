@@ -23,16 +23,16 @@ namespace Row {
 
 namespace Row {
 
-  export const at = (top: number, rows: Rows): Row | null => {
-    const row = rows[top]
-    return row ? row.slice() : null
+  export const clonedFrom = (row: Row): Row => {
+    return row.map(Square.clonedFrom)
   }
 }
 
 namespace Row {
 
-  export const clonedFrom = (row: Row): Row => {
-    return row.map(Square.clonedFrom)
+  export const at = (top: number, rows: Rows): Row | null => {
+    const row = rows.slice(top)[0]
+    return row || null
   }
 }
 
