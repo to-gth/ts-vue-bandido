@@ -4,10 +4,13 @@ import Marginor from './Marginor';
 
 namespace Marginer {
 
+  const marginRows = (width: number, height: number): Row[] => {
+    return [...Array(height)].fill(width).map(Row.blank)
+  }
   const verticaling = (rows: Rows, { top, bottom }: Marginor): void => {
     const width = rows[0].length
-    const marginTop = Rows.blank(width, top)
-    const marginBottom = Rows.blank(width, bottom)
+    const marginTop = marginRows(width, top)
+    const marginBottom = marginRows(width, bottom)
     rows.unshift(...marginTop)
     rows.push(...marginBottom)
   }
