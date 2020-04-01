@@ -19,4 +19,15 @@ namespace Limbor {
   }
 }
 
+namespace Limbor {
+
+  export const namesFrom = (limb: Limb): string[] => {
+    const names = []
+    if (limb & Limbor.L) names.push(Limbor[Limbor.L])
+    if (limb & Limbor.H) names.push(Limbor[Limbor.H])
+    if (limb & Limbor.R) names.push(Limbor[Limbor.R])
+    return names
+  }
+}
+
 export default Limbor;

@@ -3,6 +3,7 @@ import Limb from './Limb'
 import SquareFilled from './SquareFilled'
 import Limbor from './Limbor'
 import Turn from '@/foundation/Turn'
+import ApplicationError from 'ts-application-error'
 
 type LimbDirection = Direction
 
@@ -37,6 +38,15 @@ namespace LimbDirection {
 
   export const isIncludedIn = (square: SquareFilled, direction: Direction): boolean => {
     return sFrom(square).includes(direction)
+  }
+}
+
+namespace LimbDirection {
+
+  export const nameFor = (side: Direction): string => {
+    const name = Direction[side]
+    if (name) return name
+    throw new ApplicationError(`Failed to get a limb-direction-name for: ${ side }`)
   }
 }
 
