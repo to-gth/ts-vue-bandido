@@ -15,16 +15,16 @@ type SquareAddressed = {
 namespace SquareAddressed {
 
   export const accepts = (a: any): a is SquareAddressed => {
-    return !!a
-      && Address.accepts(a.address)
-      && SquareFilled.accepts(a.square)
+    if (!Address.accepts(a.address)) return false
+    if (!SquareFilled.accepts(a.squareFilled)) return false
+    return true
   }
 
-  export const from = (address: Address, filled: SquareFilled): SquareAddressed => {
+  export const from = (address: Address, squareFilled: SquareFilled): SquareAddressed => {
 
-    const one = { address, filled };
+    const one = { address, squareFilled };
     if (accepts(one)) return one;
-    throw new Error(`Failed to create a square-addressed from: ${one}`);
+    throw new Error(`Failed to create a square-addressed from: ${address}, ${squareFilled}`);
   };
 }
 
