@@ -23,14 +23,21 @@ namespace Limbor {
 
 namespace Limbor {
 
+  const namesOf = (limbor: Limbor): string => Limbor[limbor]
+
   export const namesFrom = (limb: Limb): string[] => {
-    const names = []
-    if (limb & Limbor.L) names.push(Limbor[Limbor.L])
-    if (limb & Limbor.H) names.push(Limbor[Limbor.H])
-    if (limb & Limbor.R) names.push(Limbor[Limbor.R])
-    if (limb & Limbor.D) names.push(Limbor[Limbor.D])
-    return names
+    return all
+      .filter(limbor => limb & limbor)
+      .map(namesOf)
   }
 }
 
 export default Limbor;
+
+
+    // const names = []
+    // if (limb & Limbor.L) names.push(Limbor[Limbor.L])
+    // if (limb & Limbor.H) names.push(Limbor[Limbor.H])
+    // if (limb & Limbor.R) names.push(Limbor[Limbor.R])
+    // if (limb & Limbor.D) names.push(Limbor[Limbor.D])
+    // return names
