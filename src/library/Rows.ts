@@ -3,12 +3,13 @@ import Row from './Row';
 import Address from './Address';
 import Card from './Card';
 import SquareAddressedCarded from './SquareAddressedCarded';
-import Int from 'ts-number/src/Int';
+// import Int from 'ts-number/src/Int';
 import Marginor from './Marginor';
 import Marginer from './Marginer';
 import Fillabler from './Fillabler';
 import Attacher from './Attacher';
 import Matrix from '@/foundation/Matrix';
+import ApplicationError from 'ts-application-error';
 
 type Rows = Row[]
 
@@ -17,15 +18,9 @@ namespace Rows {
   // TODO
   // accepts() should also check if it margined
   // const accepts = (a: any): a is Rows => {}
-  // const clonedFrom = (a: any): a is Rows => {}
 
 // namespace Rows {
 
-//   const accepts = (a: Row[]): a is Rows => {
-//     return true
-//       && a.length >= 1
-//       && Arr.isRectangle(a)
-//   };
 
 //   export const from = (): Rows => {
 //     const row = []
@@ -35,47 +30,82 @@ namespace Rows {
 //   };
 // }
 
-  export const blank = (width: number, height: number): Rows => {
-    return [...Array(height)].fill(width).map(Row.blank)
+  export const margin = 2
+
+  const marginIsEnough = (a: Row[]): boolean => {
+    const { left, top, right, bottom } = Marginor.fromBy(a)
+    return left + top + right + bottom === 0
+  }
+
+  export const accepts = (a: Row[]): a is Rows => {
+    return !!a
+      && a.length >= margin
+      && a[0].length >= margin
+      && Matrix.accepts(a)
+      && marginIsEnough(a)
+  }
+
+  export const blank = (width: number = margin, height: number = margin): Rows => {
+    if (width < margin) width = margin
+    if (height < margin) height = margin
+    const rows = [...Array(height)].fill(width).map(Row.blank)
+    if (accepts(rows)) return rows
+    throw new ApplicationError(`Failed to create a rows from: ${width}, ${height}`)
   }
 }
 
 namespace Rows {
 
-  const blankFrom = (marginor: Marginor, rows: Rows): Rows => {
-    const size = Matrix.sizeOf(rows)
-    const { left, top, right, bottom } = marginor
-    const width = Int.from(left + size.width + right)
-    const height = Int.from(top + size.height + bottom)
-    return Matrix.from(width, height)
-  }
+  // const blankFrom = (marginor: Marginor, rows: Rows): Rows => {
+  //   const size = Matrix.sizeOf(rows)
+  //   const { left, top, right, bottom } = marginor
+  //   const width = Int.from(left + size.width + right)
+  //   const height = Int.from(top + size.height + bottom)
+  //   return Matrix.from(width, height)
+  // }
 
-  const expandedBy = (marginor: Marginor, rows: Rows): Rows => {
-    const expanded = blankFrom(marginor, rows)
-    const offset = Address.from(marginor.left, marginor.top)
-    return Attacher.doingFrom(offset, expanded, rows)
+  // const expandedBy = (marginor: Marginor, rows: Rows): Rows => {
+  //   const expanded = blankFrom(marginor, rows)
+  //   const offset = Address.from(marginor.left, marginor.top)
+  //   return Attacher.doingFrom(offset, expanded, rows)
+  // }
+
+  const clonedFrom = (rows: Rows): Rows => {
+    const cloned = rows.map(Row.clonedFrom)
+    if (accepts(cloned)) return cloned
+    throw new ApplicationError(`Failed to a clone from: ${ rows }`)
   }
 
   export const cardAttachedAt = (address: Address, card: Card, rows: Rows): Rows => {
 
     // vvv unneeded ? vvv
-    const marginor = Marginor.fromWith(card, address, rows)
+    // const marginor = Marginor.fromWith(card, address, rows)
 
-    const expanded = expandedBy(marginor, rows)
+    // const expanded = expandedBy(marginor, rows)
 
-    const carded = SquareAddressedCarded.of(card, address)
-    const corrected = SquareAddressedCarded.correctedBy(marginor, carded)
+    // const carded = SquareAddressedCarded.of(card, address)
+    // const corrected = SquareAddressedCarded.correctedBy(marginor, carded)
     // ^^^ unneeded ? ^^^^
 
-    Attacher.doing(corrected, expanded)
+    // Attacher.doing(corrected, expanded)
 
-    const marginorr = Marginor.fromBy(expanded)
-    Marginer.doing(expanded, marginorr)
+    // const marginorr = Marginor.fromBy(expanded)
+    // Marginer.doing(expanded, marginorr)
 
-    const recorrected = SquareAddressedCarded.correctedWith(marginorr, corrected)
-    Fillabler.doing(expanded, recorrected)
+    // const recorrected = SquareAddressedCarded.correctedWith(marginorr, corrected)
+    // Fillabler.doing(expanded, recorrected)
 
-    return expanded
+    const carded = SquareAddressedCarded.of(card, address)
+    const cloned = clonedFrom(rows)
+    Attacher.doing(carded, cloned)
+
+    const marginor = Marginor.fromBy(cloned)
+    Marginer.doing(cloned, marginor)
+
+    const corrected = SquareAddressedCarded.correctedWith(marginor, carded)
+    Fillabler.doing(cloned, corrected)
+
+    return cloned
   }
 }
 
@@ -85,7 +115,7 @@ namespace Rows {
 
     const card = Card.first()
     const address = Address.zero
-    const rows = blank(0, 0)
+    const rows = blank()
     return cardAttachedAt(address, card, rows)
   }
 }
