@@ -47,4 +47,16 @@ namespace BlankRestrict {
   }
 }
 
+namespace BlankRestrict {
+
+  export const namesFrom = ({ left, top, right, bottom }: SquareBlank): string[] => {
+    return [
+      'left-' + BlankRestrict[left].toLowerCase(),
+      'top-' + BlankRestrict[top].toLowerCase(),
+      'right-' + BlankRestrict[right].toLowerCase(),
+      'bottom-' + BlankRestrict[bottom].toLowerCase(),
+    ]
+  }
+}
+
 export default BlankRestrict;
