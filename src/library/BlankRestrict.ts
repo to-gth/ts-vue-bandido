@@ -2,7 +2,6 @@ import SquareFilled from './SquareFilled'
 import LimbDirection from './LimbDirection'
 import SquareBlank from './SquareBlank'
 import Direction from '@/foundation/Direction'
-import Limb from './Limb'
 import ApplicationError from 'ts-application-error'
 
 enum BlankRestrict {
