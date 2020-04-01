@@ -17,28 +17,26 @@ type Marginor = {
 namespace Marginor {
 
   const accepts = (a: any): a is Marginor => {
-    return !!a
-      && Int.admits(a.left)
-      && Int.admits(a.top)
-      && Int.admits(a.right)
-      && Int.admits(a.bottom)
-      && a.left <= 0
-      && a.top <= 0
+    if (!Int.admits(a.left)) return false
+    if (!Int.admits(a.top)) return false
+    if (!Int.admits(a.right)) return false
+    if (!Int.admits(a.bottom)) return false
+    return true
   }
 
   export const from = (left: number, top: number, right: number, bottom: number): Marginor => {
     const one = { left, top, right, bottom }
     if (accepts(one)) return one
-    throw new ApplicationError(`Failed to create an marginor from: ${ one }`)
+    throw new ApplicationError(`Failed to create an marginor from: ${left}, ${top}, ${right}, ${bottom}`)
   }
 }
 
 namespace Marginor {
 
   const marginFor = (rows: Rows, outermost: number, secondmost: number): number => {
-    return Row.isBlankAt(secondmost, rows) ? 0
-     : Row.isBlankAt(outermost, rows) ? 1
-     : 2
+    if (!Row.isBlankAt(outermost, rows)) return 2
+    if (!Row.isBlankAt(secondmost, rows)) return 1
+    return 0
   }
   const topFor = (rows: Rows): number => {
     return marginFor(rows, 0, 1)
