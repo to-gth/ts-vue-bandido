@@ -1,5 +1,3 @@
-import Int from 'ts-number/src/Int'
-import Point from './Point'
 import Size from './Size'
 
 type Matrix = any[][]
