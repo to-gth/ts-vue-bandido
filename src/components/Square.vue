@@ -177,6 +177,6 @@ export default Vue.extend({
 .restrict-left-close .bit:nth-child(4),
 .restrict-right-close .bit:nth-child(6),
 .restrict-bottom-close .bit:nth-child(8) {
-  background-color: grey;
+  background-color: lightgray;
 }
 </style>
