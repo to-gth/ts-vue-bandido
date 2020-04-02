@@ -1,13 +1,11 @@
 
-import Limb from '@/library/Limb'
-import Direction from '@/foundation/Direction'
-import Deadlocks from './Deadlocks';
+import Direction from '@/foundation/Direction';
+import Limb from '@/library/Limb';
 
 type Card = {
   direction: Direction;
   primary: Limb;
   secondary: Limb;
-  deadlocks: Deadlocks;
 };
 
 namespace Card {
@@ -16,9 +14,8 @@ namespace Card {
     direction: Direction,
     primary: Limb,
     secondary: Limb,
-    deadlocks: Deadlocks,
   ): Card => {
-    const card = { direction, primary, secondary, deadlocks };
+    const card = { direction, primary, secondary };
     return card
   };
 }
@@ -27,7 +24,7 @@ namespace Card {
 
   // export const first = from(Direction.Right, Limb.L, Limb.HR)
   export const first = (): Card => {
-    return from(Direction.Right, Limb.L, Limb.HR, Deadlocks.None)
+    return from(Direction.Right, Limb.L, Limb.HR)
   }
 }
 

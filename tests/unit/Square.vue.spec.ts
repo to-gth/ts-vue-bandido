@@ -20,7 +20,7 @@ describe('Square.vue', () => {
     const vm: any = wrapper.vm
     expect(vm.isFilled, 'at blank').to.be.false
 
-    const filled = SquareFilled.from(Direction.Up, Limb.H, false)
+    const filled = SquareFilled.from(Direction.Up, Limb.H)
     wrapper.setProps({ square: filled })
     expect(vm.isFilled, 'at filled').to.be.true
   })

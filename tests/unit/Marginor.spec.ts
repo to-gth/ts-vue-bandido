@@ -18,8 +18,8 @@ describe('Marginor', () => {
 
   it('fromBy: one card', () => {
     const rows = [...Array(2)].map(() => Row.blank(2))
-    rows[0][0] = SquareFilled.from(Direction.Left, Limb.L, false)
-    rows[0][1] = SquareFilled.from(Direction.Right, Limb.HR, false)
+    rows[0][0] = SquareFilled.from(Direction.Left, Limb.L)
+    rows[0][1] = SquareFilled.from(Direction.Right, Limb.HR)
     const { left, top, right, bottom } = Marginor.fromBy(rows)
     expect(left).to.equal(2, 'failed left')
     expect(top).to.equal(2, 'falied top')

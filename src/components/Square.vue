@@ -1,5 +1,5 @@
 <template>
-  <div class="square" :class='[which, side, limb, deadlocks, restrict]'>
+  <div class="square" :class='[which, side, limb, restrict]'>
     <!-- <div
       class="bit"
       v-for="(classname, i) of classnames"
@@ -51,10 +51,6 @@ export default Vue.extend({
       if (this.isBlank) return  ''
       const names = Limbor.namesFrom(this.square.limb)
       return names.map((name) => 'limb-' + name.toLowerCase()).join(' ')
-    },
-    deadlocks(): string {
-      if (this.isBlank) return  ''
-      return this.square.deadlocks ? 'deadlocks' : ''
     },
     restrict(): string {
       if (this.isFilled) return  ''
@@ -165,7 +161,7 @@ export default Vue.extend({
   background-color: yellow;
 }
 
-.deadlocks .bit:nth-child(5) {
+.limb-d .bit:nth-child(5) {
   background-color: orangered;
 }
 

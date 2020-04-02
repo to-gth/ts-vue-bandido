@@ -17,7 +17,7 @@ describe('Row', () => {
   })
   it('isBlankAt: one square', () => {
     const rows = [...Array(2)].map(() => Row.blank(2))
-    rows[0][0] = SquareFilled.from(Direction.Left, Limb.L, false)
+    rows[0][0] = SquareFilled.from(Direction.Left, Limb.L)
     expect(Row.isBlankAt(0, rows), 'at 0').to.be.false
     expect(Row.isBlankAt(1, rows), 'at 1').to.be.true
     expect(Row.isBlankAt(-2, rows), 'at -2').to.be.false

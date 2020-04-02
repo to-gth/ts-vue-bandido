@@ -6,7 +6,6 @@ import ApplicationError from 'ts-application-error';
 type SquareFilled = {
   side: Direction;
   limb: Limb;
-  deadlocks: boolean;
 };
 
 namespace SquareFilled {
@@ -15,13 +14,12 @@ namespace SquareFilled {
     return !!a
       && Direction.accepts(a.side)
       && Limb.accepts(a.limb)
-      && (typeof a.deadlocks) === 'boolean'
   };
 
-  export const from = (side: Direction, limb: Limb, deadlocks: boolean): SquareFilled => {
-    const square = { side, limb, deadlocks };
+  export const from = (side: Direction, limb: Limb): SquareFilled => {
+    const square = { side, limb };
     if (accepts(square)) return square;
-    throw new ApplicationError(`Failed to create a square from: ${side}, ${limb}, ${deadlocks}`)
+    throw new ApplicationError(`Failed to create a square from: ${side}, ${limb}`)
   };
 }
 

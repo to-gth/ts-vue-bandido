@@ -8,6 +8,7 @@ enum Limb {
   LR = Limbor.L + Limbor.R,
   HR = Limbor.H + Limbor.R,
   LHR = Limbor.L + Limbor.H + Limbor.R,
+  D = Limbor.D
 }
 
 namespace Limb {
@@ -20,6 +21,7 @@ namespace Limb {
     Limb.LR,
     Limb.HR,
     Limb.LHR,
+    Limb.D,
   ]
 
   export const accepts = (a: any): a is Limb => {

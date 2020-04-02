@@ -13,6 +13,7 @@ namespace LimbDirection {
     [Limbor.L]: Turn.anticlockwise,
     [Limbor.H]: Turn.none,
     [Limbor.R]: Turn.clockwise,
+    [Limbor.D]: Turn.opposite,
   }
   const turnFor = (limbor: Limbor): Turn => turnsBy[limbor]
 
