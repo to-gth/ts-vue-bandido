@@ -11,9 +11,10 @@ type SquareFilled = {
 namespace SquareFilled {
 
   export const accepts = (a: any): a is SquareFilled => {
-    return !!a
-      && Direction.accepts(a.side)
-      && Limb.accepts(a.limb)
+    if (!a) return false
+    if (!Direction.accepts(a.side)) return false
+    if (!Limb.accepts(a.limb)) return false
+    return true
   };
 
   export const from = (side: Direction, limb: Limb): SquareFilled => {
