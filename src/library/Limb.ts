@@ -1,4 +1,5 @@
 import Limbor from './Limbor'
+import CardType from './CardType'
 
 enum Limb {
   L = Limbor.L,
@@ -34,6 +35,17 @@ namespace Limb {
 
   export const has = (limbor: Limbor, limb: Limb): boolean => {
     return Limbor.isIncludedIn(limb, limbor)
+  }
+}
+
+namespace Limb {
+
+  const mask = 0b1111
+  export const primaryOf = (cardType: CardType): Limb => {
+    return (cardType >> 4) & mask
+  }
+  export const secondaryOf = (cardType: CardType): Limb => {
+    return cardType & mask
   }
 }
 
