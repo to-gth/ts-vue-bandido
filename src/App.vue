@@ -1,17 +1,20 @@
 <template>
   <div id="app">
     <Field />
+    <!-- <Hands /> -->
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import Field from "./components/Field.vue";
+// import Hands from "./components/Hands.vue";
 
 export default Vue.extend({
   name: "App",
   components: {
-    Field
+    Field,
+    // Hands,
   }
 });
 </script>
