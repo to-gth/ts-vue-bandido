@@ -1,26 +1,30 @@
 <template>
   <div class="hand">
-    <Row :row='row' />
+    <RowVue :row='row' />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import Row from '@/components/Row.vue'
+import RowVue from '@/components/Row.vue'
+import SquareFilled from '../library/SquareFilled';
+import Row from '../library/Row';
+import CardType from '../library/CardType';
 
 export default Vue.extend({
   name: "Hand",
   props: {
-    hand: Object
+    hand: Number
   },
   components: {
-    Row
+    RowVue
   },
   computed: {
-    // row(): Row {
-
-    //   return 
-    // }
+    row(): Row {
+      const cardType = this.hand
+      console.log('cardType', CardType[cardType], cardType)
+      return SquareFilled.sFrom(cardType)
+    }
   },
   methods: {
   },

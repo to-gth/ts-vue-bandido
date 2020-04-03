@@ -43,4 +43,68 @@ namespace CardType {
   }
 }
 
+namespace CardType {
+
+  const all = [
+    CardType.LHRxD,
+    CardType.LHRxH,
+    CardType.LHRxL,
+    CardType.LHRxLHR,
+    CardType.LHRxR,
+    CardType.LHxD,
+    CardType.LHxH,
+    CardType.LHxHR,
+    CardType.LHxL,
+    CardType.LHxLH,
+    CardType.LHxLR,
+    CardType.LHxR,
+    CardType.LRxD,
+    CardType.LRxH,
+    CardType.LRxHR,
+    CardType.LRxL,
+    CardType.LRxLHR,
+    CardType.LRxLR,
+    CardType.LRxR,
+    CardType.LxD,
+    CardType.LxH,
+    CardType.LxL,
+    CardType.LxR,
+    CardType.HRxD,
+    CardType.HRxH,
+    CardType.HRxHR,
+    CardType.HRxL,
+    CardType.HRxR,
+    CardType.HxD,
+    CardType.HxH,
+    CardType.HxR,
+    CardType.RxD,
+    CardType.RxR,
+  ]
+
+  const _all = (): CardType[] => {
+    return all.flatMap((cardType) => {
+      const n = numberOf(cardType)
+      return [...Array(n)].fill(cardType)
+    })
+  }
+  const randomIndice = (size: number) => {
+    const sequence = [...Array(size)].map((_, i) => i)
+    const random = []
+    while (size) {
+      const index = Math.random() * size
+      const one = sequence.splice(index, 1)
+      random.push(one[0])
+      size--
+    }
+    return random
+  }
+
+  export const randomAll = (): CardType[] => {
+
+    const all = _all()
+    const indice = randomIndice(all.length)
+    return indice.map(i => all[i])
+  }
+}
+
 export default CardType

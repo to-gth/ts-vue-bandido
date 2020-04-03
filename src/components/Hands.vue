@@ -3,19 +3,23 @@
     <Hand
       v-for="(hand, i) of hands"
       :key="i"
+      :hand='hand'
     />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import Hand from './Hand.vue';
 
 export default Vue.extend({
   name: "Square",
   props: {
     hands: Array
   },
-  // components: {},
+  components: {
+    Hand
+  },
   computed: {
   },
   methods: {

@@ -1,20 +1,26 @@
 <template>
   <div id="app">
     <Field />
-    <!-- <Hands /> -->
+    <Hands :hands='hands' />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import Field from "./components/Field.vue";
-// import Hands from "./components/Hands.vue";
+import Hands from "./components/Hands.vue";
+import CardType from './library/CardType';
 
 export default Vue.extend({
   name: "App",
   components: {
     Field,
-    // Hands,
+    Hands,
+  },
+  computed: {
+    hands(): CardType[] {
+      return this.$store.state.hands
+    }
   }
 });
 </script>
