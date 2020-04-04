@@ -11,9 +11,12 @@
 ## ts
 
 - dont use namespace, instead module
+- readonly
 
 
 
+
+## refactor
 
 Row = Square[]
 Rows = Row[]
@@ -28,4 +31,10 @@ Card = direction, cardType
 SquareRoom
 SquareFill
 Square
+
+
+
+
+
+
 
