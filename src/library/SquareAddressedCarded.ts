@@ -3,7 +3,7 @@ import Address from './Address'
 import Card from './Card';
 import SquareAddressed from './SquareAddressed';
 import Vector from '@/foundation/Vector';
-import Marginor from './Marginor';
+import RowsMarginor from './RowsMarginor';
 
 type SquareAddressedCarded = {
   primary: SquareAddressed;
@@ -37,7 +37,7 @@ namespace SquareAddressedCarded {
 
 namespace SquareAddressedCarded {
 
-  export const correctedBy = (marginor: Marginor, carded: SquareAddressedCarded): SquareAddressedCarded => {
+  export const correctedBy = (marginor: RowsMarginor, carded: SquareAddressedCarded): SquareAddressedCarded => {
 
     const { left, top } = marginor
     const offset = Vector.from(-left, -top)
@@ -48,7 +48,7 @@ namespace SquareAddressedCarded {
     return from(shiftedPrimary, shiftedSecondary)
   }
 
-  export const correctedWith = (marginor: Marginor, carded: SquareAddressedCarded): SquareAddressedCarded => {
+  export const correctedWith = (marginor: RowsMarginor, carded: SquareAddressedCarded): SquareAddressedCarded => {
 
     const offset = Vector.from(marginor.left, marginor.top)
     const { primary, secondary } = carded

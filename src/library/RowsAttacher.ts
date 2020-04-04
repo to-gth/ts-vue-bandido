@@ -6,7 +6,7 @@ import SquareAddressed from './SquareAddressed';
 import Address from './Address';
 import Square from './Square';
 
-namespace Attacher {
+namespace RowsAttacher {
 
   export const doingAt = (address: Address, square: Square, rows: Rows): void => {
     const { top, left } = address
@@ -26,7 +26,7 @@ namespace Attacher {
   }
 }
 
-namespace Attacher {
+namespace RowsAttacher {
 
   export const doingFrom = (lefttop: Address, base: any[][], rect: any[][]): any[][] => {
     const { left, top } = lefttop
@@ -44,4 +44,4 @@ namespace Attacher {
 //     attachingAt(address, blank, rows)
 // }
 
-export default Attacher;
+export default RowsAttacher;

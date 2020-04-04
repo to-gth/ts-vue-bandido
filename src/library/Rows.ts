@@ -4,10 +4,10 @@ import Address from './Address';
 import Card from './Card';
 import SquareAddressedCarded from './SquareAddressedCarded';
 // import Int from 'ts-number/src/Int';
-import Marginor from './Marginor';
-import Marginer from './Marginer';
-import Fillabler from './Fillabler';
-import Attacher from './Attacher';
+import RowsMarginor from './RowsMarginor';
+import RowsMarginer from './RowsMarginer';
+import RowsFillabler from './RowsFillabler';
+import RowsAttacher from './RowsAttacher';
 import Matrix from '@/foundation/Matrix';
 import ApplicationError from 'ts-application-error';
 
@@ -33,7 +33,7 @@ namespace Rows {
   export const margin = 2
 
   const marginIsEnough = (a: Row[]): boolean => {
-    const { left, top, right, bottom } = Marginor.fromBy(a)
+    const { left, top, right, bottom } = RowsMarginor.fromBy(a)
     return left + top + right + bottom === 0
   }
 
@@ -56,7 +56,7 @@ namespace Rows {
 
 namespace Rows {
 
-  // const blankFrom = (marginor: Marginor, rows: Rows): Rows => {
+  // const blankFrom = (marginor: RowsMarginor, rows: Rows): Rows => {
   //   const size = Matrix.sizeOf(rows)
   //   const { left, top, right, bottom } = marginor
   //   const width = Int.from(left + size.width + right)
@@ -64,7 +64,7 @@ namespace Rows {
   //   return Matrix.from(width, height)
   // }
 
-  // const expandedBy = (marginor: Marginor, rows: Rows): Rows => {
+  // const expandedBy = (marginor: RowsMarginor, rows: Rows): Rows => {
   //   const expanded = blankFrom(marginor, rows)
   //   const offset = Address.from(marginor.left, marginor.top)
   //   return Attacher.doingFrom(offset, expanded, rows)
@@ -79,7 +79,7 @@ namespace Rows {
   export const cardAttachedAt = (address: Address, card: Card, rows: Rows): Rows => {
 
     // vvv unneeded ? vvv
-    // const marginor = Marginor.fromWith(card, address, rows)
+    // const marginor = RowsMarginor.fromWith(card, address, rows)
 
     // const expanded = expandedBy(marginor, rows)
 
@@ -89,7 +89,7 @@ namespace Rows {
 
     // Attacher.doing(corrected, expanded)
 
-    // const marginorr = Marginor.fromBy(expanded)
+    // const marginorr = RowsMarginor.fromBy(expanded)
     // Marginer.doing(expanded, marginorr)
 
     // const recorrected = SquareAddressedCarded.correctedWith(marginorr, corrected)
@@ -97,13 +97,13 @@ namespace Rows {
 
     const carded = SquareAddressedCarded.of(card, address)
     const cloned = clonedFrom(rows)
-    Attacher.doing(carded, cloned)
+    RowsAttacher.doing(carded, cloned)
 
-    const marginor = Marginor.fromBy(cloned)
-    Marginer.doing(cloned, marginor)
+    const marginor = RowsMarginor.fromBy(cloned)
+    RowsMarginer.doing(cloned, marginor)
 
     const corrected = SquareAddressedCarded.correctedWith(marginor, carded)
-    Fillabler.doing(cloned, corrected)
+    RowsFillabler.doing(cloned, corrected)
 
     return cloned
   }

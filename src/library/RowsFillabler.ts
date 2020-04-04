@@ -6,10 +6,10 @@ import Address from './Address';
 import Square from './Square';
 import SquareBlank from './SquareBlank';
 import Direction from '@/foundation/Direction';
-import Attacher from './Attacher';
+import RowsAttacher from './RowsAttacher';
 import BlankRestrict from './BlankRestrict';
 
-namespace Fillabler {
+namespace RowsFillabler {
 
   const doingAround = (addressed: SquareAddressed, rows: Rows): void => {
 
@@ -26,7 +26,7 @@ namespace Fillabler {
         const restrict = BlankRestrict.correspondedFor(direction, center)
         const opposite = Direction.oppositeOf(direction)
         const overwritten = SquareBlank.overwrittenOn(opposite, restrict, square)
-        Attacher.doingAt(shifted, overwritten, rows)
+        RowsAttacher.doingAt(shifted, overwritten, rows)
       })
   }
 
@@ -37,4 +37,4 @@ namespace Fillabler {
   }
 }
 
-export default Fillabler;
+export default RowsFillabler;

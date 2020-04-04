@@ -7,16 +7,16 @@ import Address from './Address';
 import Card from './Card';
 import AddressCarded from './AddressCarded';
 
-type Marginor = {
+type RowsMarginor = {
   left: Int;
   top: Int;
   right: Int;
   bottom: Int;
 };
 
-namespace Marginor {
+namespace RowsMarginor {
 
-  const accepts = (a: any): a is Marginor => {
+  const accepts = (a: any): a is RowsMarginor => {
     if (!Int.admits(a.left)) return false
     if (!Int.admits(a.top)) return false
     if (!Int.admits(a.right)) return false
@@ -24,14 +24,14 @@ namespace Marginor {
     return true
   }
 
-  export const from = (left: number, top: number, right: number, bottom: number): Marginor => {
+  export const from = (left: number, top: number, right: number, bottom: number): RowsMarginor => {
     const one = { left, top, right, bottom }
     if (accepts(one)) return one
     throw new ApplicationError(`Failed to create an marginor from: ${left}, ${top}, ${right}, ${bottom}`)
   }
 }
 
-namespace Marginor {
+namespace RowsMarginor {
 
   const marginFor = (rows: Rows, outermost: number, secondmost: number): number => {
     if (!Row.isBlankAt(outermost, rows)) return 2
@@ -44,7 +44,7 @@ namespace Marginor {
   const bottomFor = (rows: Rows): number => {
     return marginFor(rows, -1, -2)
   }
-  export const fromBy = (rows: Rows): Marginor => {
+  export const fromBy = (rows: Rows): RowsMarginor => {
     const top = topFor(rows)
     const bottom = bottomFor(rows)
     const transposed = Matrix.transposed(rows)
@@ -54,9 +54,9 @@ namespace Marginor {
   };
 }
 
-namespace Marginor {
+namespace RowsMarginor {
 
-  export const fromWith = (card: Card, address: Address, rows: Rows): Marginor => {
+  export const fromWith = (card: Card, address: Address, rows: Rows): RowsMarginor => {
 
     const carded = AddressCarded.from(card, address)
     const { primary, secondary } = carded
@@ -75,4 +75,4 @@ namespace Marginor {
   };
 }
 
-export default Marginor;
+export default RowsMarginor;
