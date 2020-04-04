@@ -1,20 +1,20 @@
 <template>
-  <div class="square" :class='[which, side, limb, restrict]'>
+  <div class="square square-gridder" :class='[which, side, limb, restrict]'>
     <!-- <div
       class="bit"
       v-for="(classname, i) of classnames"
       :key="i"
       :class="classname"
     /> -->
-    <div class="bit"></div>
-    <div class="bit"></div>
-    <div class="bit"></div>
-    <div class="bit"></div>
-    <div class="bit"></div>
-    <div class="bit"></div>
-    <div class="bit"></div>
-    <div class="bit"></div>
-    <div class="bit"></div>
+    <div class="bit bit-square"></div>
+    <div class="bit bit-square"></div>
+    <div class="bit bit-square"></div>
+    <div class="bit bit-square"></div>
+    <div class="bit bit-square"></div>
+    <div class="bit bit-square"></div>
+    <div class="bit bit-square"></div>
+    <div class="bit bit-square"></div>
+    <div class="bit bit-square"></div>
   </div>
 </template>
 
@@ -113,20 +113,24 @@ export default Vue.extend({
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .square {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  height: 100%;
-  /* grid-auto-rows: 1fr; */
-  /* grid-auto-rows: 30px; */
+  /* height: 100%; */
   border: lightgrey 1px solid;
   margin-top: -1px;
   margin-left: -1px;
 }
+.square-gridder {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* grid-auto-rows: 1fr; */
+  /* grid-auto-rows: 30px; */
+}
+
 .bit {
   margin: 0;
   border: 0;
   padding: 0;
-  /* margin-left: -1px; */
+}
+.bit-square {
   padding-bottom: 100%;
 }
 
