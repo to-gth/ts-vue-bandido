@@ -1,31 +1,33 @@
 
 import Direction from '@/foundation/Direction';
-import Limb from '@/library/Limb';
+import CardType from './CardType';
 
 type Card = {
   direction: Direction;
-  primary: Limb;
-  secondary: Limb;
+  // primary: Limb;
+  // secondary: Limb;
+  type: CardType;
 };
 
 namespace Card {
 
   export const from = (
     direction: Direction,
-    primary: Limb,
-    secondary: Limb,
+    // primary: Limb,
+    // secondary: Limb,
+    type: CardType,
   ): Card => {
-    const card = { direction, primary, secondary };
-    return card
+    const one = { direction, type };
+    return one
   };
 }
 
 namespace Card {
 
-  // export const first = from(Direction.Right, Limb.L, Limb.HR)
-  export const first = (): Card => {
-    return from(Direction.Right, Limb.L, Limb.HR)
-  }
+  export const first = from(Direction.Left, CardType.HRxL)
+  // export const first = (): Card => {
+  //   return from(Direction.Left, CardType.HRxL)
+  // }
 }
 
 export default Card;
