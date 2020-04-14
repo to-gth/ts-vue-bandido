@@ -3,34 +3,34 @@
 // import Card from './Card';
 // import Direction from '@/foundation/Direction';
 // import Limb from './Limb';
-// import SquareFilled from './SquareFilled';
+// import SquareFill from './SquareFill';
 // import Vector from '@/foundation/Vector';
 
 // type SquareAddressed = {
 //   address: Address;
-//   squareFilled: SquareFilled;
+//   squareFill: SquareFill;
 // };
 
 // namespace SquareAddressed {
 
 //   export const accepts = (a: any): a is SquareAddressed => {
 //     if (!Address.accepts(a.address)) return false
-//     if (!SquareFilled.accepts(a.squareFilled)) return false
+//     if (!SquareFill.accepts(a.squareFill)) return false
 //     return true
 //   }
 
-//   export const from = (address: Address, squareFilled: SquareFilled): SquareAddressed => {
+//   export const from = (address: Address, squareFill: SquareFill): SquareAddressed => {
 
-//     const one = { address, squareFilled };
+//     const one = { address, squareFill };
 //     if (accepts(one)) return one;
-//     throw new Error(`Failed to create a square-addressed from: ${address}, ${squareFilled}`);
+//     throw new Error(`Failed to create a square-addressed from: ${address}, ${squareFill}`);
 //   };
 // }
 
 // namespace SquareAddressed {
 
 //   const fromBy = (side: Direction, limb: Limb, address: Address): SquareAddressed => {
-//     const square = SquareFilled.from(side, limb)
+//     const square = SquareFill.from(side, limb)
 //     return from(address, square)
 //   }
 //   export const primaryFrom = (card: Card, address: Address): SquareAddressed => {
@@ -49,9 +49,9 @@
 
 // namespace SquareAddressed {
 
-//   export const shiftedBy = (diff: Vector, { address, squareFilled }: SquareAddressed): SquareAddressed => {
+//   export const shiftedBy = (diff: Vector, { address, squareFill }: SquareAddressed): SquareAddressed => {
 //     const shifted = Address.shiftedBy(diff, address)
-//     return from(shifted, squareFilled)
+//     return from(shifted, squareFill)
 //   }
 // }
 

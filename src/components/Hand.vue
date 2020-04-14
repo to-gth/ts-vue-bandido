@@ -8,7 +8,7 @@
 <script lang="ts">
 import Vue from "vue";
 import RowVue from '@/components/Row.vue'
-import SquareFilled from '../library/SquareFilled';
+import SquareFill from '../library/SquareFill';
 import Row from '../library/Row';
 
 export default Vue.extend({
@@ -23,7 +23,7 @@ export default Vue.extend({
   computed: {
     row(): Row {
       const cardType = this.hand
-      return SquareFilled.sFrom(cardType)
+      return SquareFill.sFrom(cardType)
     }
   },
   methods: {

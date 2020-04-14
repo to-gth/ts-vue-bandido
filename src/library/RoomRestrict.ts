@@ -1,4 +1,4 @@
-import SquareFilled from './SquareFilled'
+import SquareFill from './SquareFill'
 import LimbDirection from './LimbDirection'
 import SquareRoom from './SquareRoom'
 import Direction from '@/foundation/Direction'
@@ -25,7 +25,7 @@ namespace RoomRestrict {
 
 namespace RoomRestrict {
 
-  export const correspondedFor = (direction: LimbDirection, center: SquareFilled): RoomRestrict => {
+  export const correspondedFor = (direction: LimbDirection, center: SquareFill): RoomRestrict => {
 
     return LimbDirection.isIncludedIn(center, direction)
       ? RoomRestrict.Open

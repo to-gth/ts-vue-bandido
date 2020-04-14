@@ -9,11 +9,11 @@ import Direction from '@/foundation/Direction';
 import RowsAttacher from './RowsAttacher';
 import RoomRestrict from './RoomRestrict';
 import CardOnBoard from './CardOnBoard';
-import SquareFilled from './SquareFilled';
+import SquareFill from './SquareFill';
 
 namespace RowsFillabler {
 
-  const doingAround = (address: Address, center: SquareFilled, rows: Rows): void => {
+  const doingAround = (address: Address, center: SquareFill, rows: Rows): void => {
 
     LimbDirection
       .sAllFrom(center.side)
@@ -33,7 +33,7 @@ namespace RowsFillabler {
   export const doing = (rows: Rows, cardOnBoard: CardOnBoard): void => {
 
     // TODO: refactor
-    const [fillPrimary, fillSecondary] = SquareFilled.sOf(cardOnBoard)
+    const [fillPrimary, fillSecondary] = SquareFill.sOf(cardOnBoard)
     const addressPrimary = Address.primaryFrom(cardOnBoard)
     const addressSecondary = Address.secondaryFrom(cardOnBoard)
     doingAround(addressPrimary, fillPrimary, rows)

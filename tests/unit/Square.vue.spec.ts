@@ -2,14 +2,14 @@ import { expect } from 'chai'
 import { shallowMount } from '@vue/test-utils'
 import Square from '@/components/Square.vue'
 import SquareRoom from '@/library/SquareRoom'
-import SquareFilled from '@/library/SquareFilled'
+import SquareFill from '@/library/SquareFill'
 import Direction from '@/foundation/Direction'
 import Limb from '@/library/Limb'
 
 
 describe('Square.vue', () => {
 
-  it('isFilled', () => {
+  it('isFill', () => {
 
     const blank = SquareRoom.blank()
 
@@ -18,10 +18,10 @@ describe('Square.vue', () => {
 
     const wrapper = shallowMount(Square, options)
     const vm: any = wrapper.vm
-    expect(vm.isFilled, 'at blank').to.be.false
+    expect(vm.isFill, 'at blank').to.be.false
 
-    const filled = SquareFilled.from(Direction.Up, Limb.H)
-    wrapper.setProps({ square: filled })
-    expect(vm.isFilled, 'at filled').to.be.true
+    const Fill = SquareFill.from(Direction.Up, Limb.H)
+    wrapper.setProps({ square: Fill })
+    expect(vm.isFill, 'at Fill').to.be.true
   })
 })

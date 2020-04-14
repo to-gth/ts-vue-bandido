@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import SquareFilled from '../library/SquareFilled';
+import SquareFill from '../library/SquareFill';
 import LimbDirection from '../library/LimbDirection';
 import Direction from '../foundation/Direction';
 import RoomRestrict from '../library/RoomRestrict';
@@ -34,14 +34,14 @@ export default Vue.extend({
   },
   // components: {},
   computed: {
-    isFilled(): boolean {
-      return SquareFilled.accepts(this.square)
+    isFill(): boolean {
+      return SquareFill.accepts(this.square)
     },
     isBlank(): boolean {
-      return !this.isFilled
+      return !this.isFill
     },
     which(): string {
-      return 'square-' + (this.isFilled ? 'filled' : 'blank')
+      return 'square-' + (this.isFill ? 'Fill' : 'blank')
     },
     side(): string {
       if (this.isBlank) return  ''
@@ -53,32 +53,32 @@ export default Vue.extend({
       return names.map((name) => 'limb-' + name.toLowerCase()).join(' ')
     },
     restrict(): string {
-      if (this.isFilled) return  ''
+      if (this.isFill) return  ''
       return RoomRestrict
         .namesFrom(this.square)
         .map(name => 'restrict-' + name)
         .join(' ')
     },
-    // isFilled(): boolean {
-    //   return SquareFilled.accepts(this.square)
+    // isFill(): boolean {
+    //   return SquareFill.accepts(this.square)
     // },
-    // classnamesOfFilled(): string[] {
-    //   const filled = this.square
+    // classnamesOfFill(): string[] {
+    //   const Fill = this.square
 
     //   const classnames = [...Array(9)].fill('wall')
-    //   classnames[4] = filled.deadlocks ? 'deadlock' : 'passage'
-    //   if (LimbDirection.isIncludedIn(filled, Direction.Up)) classnames[1] = 'passage'
-    //   if (LimbDirection.isIncludedIn(filled, Direction.Left)) classnames[3] = 'passage'
-    //   if (LimbDirection.isIncludedIn(filled, Direction.Right)) classnames[5] = 'passage'
-    //   if (LimbDirection.isIncludedIn(filled, Direction.Down)) classnames[7] = 'passage'
+    //   classnames[4] = Fill.deadlocks ? 'deadlock' : 'passage'
+    //   if (LimbDirection.isIncludedIn(Fill, Direction.Up)) classnames[1] = 'passage'
+    //   if (LimbDirection.isIncludedIn(Fill, Direction.Left)) classnames[3] = 'passage'
+    //   if (LimbDirection.isIncludedIn(Fill, Direction.Right)) classnames[5] = 'passage'
+    //   if (LimbDirection.isIncludedIn(Fill, Direction.Down)) classnames[7] = 'passage'
 
-    //   // const index = this.indexOfCorridorOf(filled.side)
+    //   // const index = this.indexOfCorridorOf(Fill.side)
     //   // classnames[index] = 'passage'
     //   return classnames
     // },
     // classnamesOfBlank(): string[] {
     //   const blank = this.square
-    //   const classnames = [...Array(9)].fill('unfilled')
+    //   const classnames = [...Array(9)].fill('unFill')
     //   classnames[1] = this.classnameOf(Direction.Up, blank)
     //   classnames[3] = this.classnameOf(Direction.Left, blank)
     //   classnames[5] = this.classnameOf(Direction.Right, blank)
@@ -86,8 +86,8 @@ export default Vue.extend({
     //   return classnames
     // },
     // classnames(): string[] {
-    //   return this.isFilled
-    //     ? this.classnamesOfFilled
+    //   return this.isFill
+    //     ? this.classnamesOfFill
     //     : this.classnamesOfBlank
     // },
   },
@@ -134,11 +134,11 @@ export default Vue.extend({
   padding-bottom: 100%;
 }
 
-.square-filled .bit {
+.square-Fill .bit {
   background-color: brown; /* .wall */
 }
 .square-blank .bit {
-  background-color: whitesmoke; /* .unfilled */
+  background-color: whitesmoke; /* .unFill */
 }
 
 .side-left.limb-r .bit:nth-child(2),
@@ -161,7 +161,7 @@ export default Vue.extend({
 .side-right.limb-r .bit:nth-child(8),
 .side-bottom.limb-h .bit:nth-child(8),
 
-.square-filled .bit:nth-child(5) { /* .passage */
+.square-Fill .bit:nth-child(5) { /* .passage */
   background-color: yellow;
 }
 

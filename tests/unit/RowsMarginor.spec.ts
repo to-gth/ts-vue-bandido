@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import RowsMarginor from '@/library/RowsMarginor'
 import Row from '@/library/Row'
-import SquareFilled from '@/library/SquareFilled'
+import SquareFill from '@/library/SquareFill'
 import Direction from '@/foundation/Direction'
 import Limb from '@/library/Limb'
 
@@ -18,8 +18,8 @@ describe('RowsMarginor', () => {
 
   it('fromBy: one card', () => {
     const rows = [...Array(2)].map(() => Row.blank(2))
-    rows[0][0] = SquareFilled.from(Direction.Left, Limb.L)
-    rows[0][1] = SquareFilled.from(Direction.Right, Limb.HR)
+    rows[0][0] = SquareFill.from(Direction.Left, Limb.L)
+    rows[0][1] = SquareFill.from(Direction.Right, Limb.HR)
     const { left, top, right, bottom } = RowsMarginor.fromBy(rows)
     expect(left).to.equal(2, 'failed left')
     expect(top).to.equal(2, 'falied top')

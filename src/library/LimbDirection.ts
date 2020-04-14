@@ -1,6 +1,6 @@
 import Direction from '@/foundation/Direction'
 import Limb from './Limb'
-import SquareFilled from './SquareFilled'
+import SquareFill from './SquareFill'
 import Limbor from './Limbor'
 import Turn from '@/foundation/Turn'
 import ApplicationError from 'ts-application-error'
@@ -22,7 +22,7 @@ namespace LimbDirection {
     return Direction.turned(side, turn)
   }
 
-  export const sFrom = (square: SquareFilled): Direction[] => {
+  export const sFrom = (square: SquareFill): Direction[] => {
     const { side, limb } = square
     const directions = Limbor.all
       .filter(limbor => Limb.has(limbor, limb))
@@ -37,7 +37,7 @@ namespace LimbDirection {
 
 namespace LimbDirection {
 
-  export const isIncludedIn = (square: SquareFilled, direction: Direction): boolean => {
+  export const isIncludedIn = (square: SquareFill, direction: Direction): boolean => {
     return sFrom(square).includes(direction)
   }
 }

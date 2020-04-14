@@ -2,10 +2,10 @@
 import Rows from './Rows';
 import Address from './Address';
 import SquareRoom from './SquareRoom';
-import SquareFilled from './SquareFilled';
+import SquareFill from './SquareFill';
 import Row from './Row';
 
-type Square = SquareFilled | SquareRoom
+type Square = SquareFill | SquareRoom
 
 // namespace Square {
 

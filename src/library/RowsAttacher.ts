@@ -6,7 +6,7 @@ import Row from './Row';
 import Address from './Address';
 import Square from './Square';
 import CardOnBoard from './CardOnBoard';
-import SquareFilled from './SquareFilled';
+import SquareFill from './SquareFill';
 
 namespace RowsAttacher {
 
@@ -20,8 +20,8 @@ namespace RowsAttacher {
   }
 
   // const doingOf = (addressed: SquareAddressed, rows: Rows): void => {
-  //   const { address, squareFilled } = addressed
-  //   doingAt(address, squareFilled, rows)
+  //   const { address, squareFill } = addressed
+  //   doingAt(address, squareFill, rows)
   // }
   // export const doing = (carded: SquareAddressedCarded, rows: Rows): void => {
   //   doingOf(carded.primary, rows)
@@ -29,7 +29,7 @@ namespace RowsAttacher {
   // }
   export const doing = (cardOnBoard: CardOnBoard, rows: Rows): void => {
 
-    const [fillPrimary, fillSecondary] = SquareFilled.sOf(cardOnBoard)
+    const [fillPrimary, fillSecondary] = SquareFill.sOf(cardOnBoard)
     const addressPrimary = Address.primaryFrom(cardOnBoard)
     const addressSecondary = Address.secondaryFrom(cardOnBoard)
     doingAt(addressPrimary, fillPrimary, rows)
