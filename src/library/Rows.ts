@@ -11,6 +11,7 @@ import RowsAttacher from './RowsAttacher';
 import Matrix from '@/foundation/Matrix';
 import ApplicationError from 'ts-application-error';
 import CardOnBoard from './CardOnBoard';
+import RowsMargin from './RowsMargin';
 
 type Rows = Row[]
 
@@ -33,17 +34,12 @@ namespace Rows {
 
   export const margin = 2
 
-  const marginIsEnough = (a: Row[]): boolean => {
-    const { left, top, right, bottom } = RowsMarginor.fromBy(a)
-    return left + top + right + bottom === 0
-  }
-
   export const accepts = (a: Row[]): a is Rows => {
     return !!a
       && a.length >= margin
       && a[0].length >= margin
       && Matrix.accepts(a)
-      && marginIsEnough(a)
+      && RowsMargin.isEnough(a)
   }
 
   export const blank = (width: number = margin, height: number = margin): Rows => {

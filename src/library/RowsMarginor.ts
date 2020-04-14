@@ -1,11 +1,15 @@
 import ApplicationError from 'ts-application-error';
 import Rows from './Rows';
-import Row from './Row';
 import Matrix from '@/foundation/Matrix';
 import Int from 'ts-number/src/Int';
 import Address from './Address';
 import Card from './Card';
 import AddressPair from './AddressPair';
+import RowsMargin from './RowsMargin';
+
+
+// TODO:
+// RowsMargin instead of Int
 
 type RowsMarginor = {
   left: Int;
@@ -33,26 +37,19 @@ namespace RowsMarginor {
 
 namespace RowsMarginor {
 
-  const marginFor = (rows: Rows, outermost: number, secondmost: number): number => {
-    if (!Row.isBlankAt(outermost, rows)) return 2
-    if (!Row.isBlankAt(secondmost, rows)) return 1
-    return 0
-  }
-  const topFor = (rows: Rows): number => {
-    return marginFor(rows, 0, 1)
-  }
-  const bottomFor = (rows: Rows): number => {
-    return marginFor(rows, -1, -2)
-  }
   export const fromBy = (rows: Rows): RowsMarginor => {
-    const top = topFor(rows)
-    const bottom = bottomFor(rows)
+    const top = RowsMargin.topFor(rows)
+    const bottom = RowsMargin.bottomFor(rows)
     const transposed = Matrix.transposed(rows)
-    const left = topFor(transposed)
-    const right = bottomFor(transposed)
+    const left = RowsMargin.topFor(transposed)
+    const right = RowsMargin.bottomFor(transposed)
     return from(left, top, right, bottom)
   };
 }
+
+
+// TODO:
+// emigrate some process to RowsMargin
 
 namespace RowsMarginor {
 
