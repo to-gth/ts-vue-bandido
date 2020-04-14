@@ -31,7 +31,8 @@ Card = direction, cardType
 Square
   SquareRoom
   SquareFill
-    SquareFillAddressedPair
+    SquareFillOnBoard
+    SquareFillOnBoardPair
 
 
 
