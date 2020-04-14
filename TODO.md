@@ -28,9 +28,10 @@ Limb = L,H,R,D
 CardType = LHxR, RxD, HxLH, ...
 Card = direction, cardType
 
-SquareRoom
-SquareFill
 Square
+  SquareRoom
+  SquareFill
+    SquareFillAddressedPair
 
 
 
