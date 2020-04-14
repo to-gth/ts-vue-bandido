@@ -2,6 +2,7 @@
 import Point from '@/foundation/Point'
 import Direction from '@/foundation/Direction'
 import Vector from '@/foundation/Vector';
+import CardOnBoard from './CardOnBoard';
 
 type Address = Point;
 
@@ -10,7 +11,8 @@ namespace Address {
   export const accepts = Point.accepts
   export const from = Point.from
 
-  export const zero = from(0, 0)
+  // export const zero = from(0, 0)
+  export const first = from(1, 0)
 }
 
 namespace Address {
@@ -29,6 +31,17 @@ namespace Address {
     const left = -address.left
     const top = -address.top
     return from(left, top)
+  }
+}
+
+namespace Address {
+
+  export const primaryFrom = (cardOnBoard: CardOnBoard): Address => {
+    return cardOnBoard.address
+  }
+  export const secondaryFrom = ({ card, address }: CardOnBoard): Address => {
+    const side = card.direction
+    return shiftedToNext(side, address)
   }
 }
 

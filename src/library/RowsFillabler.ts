@@ -1,6 +1,6 @@
 import Rows from './Rows';
-import SquareAddressedCarded from './SquareAddressedCarded';
-import SquareAddressed from './SquareAddressed';
+// import SquareAddressedCarded from './SquareAddressedCarded';
+// import SquareAddressed from './SquareAddressed';
 import LimbDirection from './LimbDirection';
 import Address from './Address';
 import Square from './Square';
@@ -8,18 +8,18 @@ import SquareBlank from './SquareBlank';
 import Direction from '@/foundation/Direction';
 import RowsAttacher from './RowsAttacher';
 import BlankRestrict from './BlankRestrict';
+import CardOnBoard from './CardOnBoard';
+import SquareFilled from './SquareFilled';
 
 namespace RowsFillabler {
 
-  const doingAround = (addressed: SquareAddressed, rows: Rows): void => {
-
-    const center = addressed.squareFilled
+  const doingAround = (address: Address, center: SquareFilled, rows: Rows): void => {
 
     LimbDirection
       .sAllFrom(center.side)
       .forEach((direction) => {
 
-        const shifted = Address.shiftedToNext(direction, addressed.address)
+        const shifted = Address.shiftedToNext(direction, address)
         const square = Square.at(shifted, rows)
         if (!SquareBlank.accepts(square)) return
 
@@ -30,10 +30,14 @@ namespace RowsFillabler {
       })
   }
 
-  export const doing = (rows: Rows, carded: SquareAddressedCarded): void => {
+  export const doing = (rows: Rows, cardOnBoard: CardOnBoard): void => {
 
-    doingAround(carded.primary, rows)
-    doingAround(carded.secondary, rows)
+    // TODO: refactor
+    const [fillPrimary, fillSecondary] = SquareFilled.sOf(cardOnBoard)
+    const addressPrimary = Address.primaryFrom(cardOnBoard)
+    const addressSecondary = Address.secondaryFrom(cardOnBoard)
+    doingAround(addressPrimary, fillPrimary, rows)
+    doingAround(addressSecondary, fillSecondary, rows)
   }
 }
 

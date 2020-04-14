@@ -2,7 +2,7 @@
 import Row from './Row';
 import Address from './Address';
 import Card from './Card';
-import SquareAddressedCarded from './SquareAddressedCarded';
+// import SquareAddressedCarded from './SquareAddressedCarded';
 // import Int from 'ts-number/src/Int';
 import RowsMarginor from './RowsMarginor';
 import RowsMarginer from './RowsMarginer';
@@ -10,6 +10,7 @@ import RowsFillabler from './RowsFillabler';
 import RowsAttacher from './RowsAttacher';
 import Matrix from '@/foundation/Matrix';
 import ApplicationError from 'ts-application-error';
+import CardOnBoard from './CardOnBoard';
 
 type Rows = Row[]
 
@@ -78,31 +79,25 @@ namespace Rows {
 
   export const cardAttachedAt = (address: Address, card: Card, rows: Rows): Rows => {
 
-    // vvv unneeded ? vvv
-    // const marginor = RowsMarginor.fromWith(card, address, rows)
-
-    // const expanded = expandedBy(marginor, rows)
-
     // const carded = SquareAddressedCarded.of(card, address)
-    // const corrected = SquareAddressedCarded.correctedBy(marginor, carded)
-    // ^^^ unneeded ? ^^^^
+    // const cloned = clonedFrom(rows)
+    // RowsAttacher.doing(carded, cloned)
 
-    // Attacher.doing(corrected, expanded)
+    // const marginor = RowsMarginor.fromBy(cloned)
+    // RowsMarginer.doing(cloned, marginor)
 
-    // const marginorr = RowsMarginor.fromBy(expanded)
-    // Marginer.doing(expanded, marginorr)
+    // const corrected = SquareAddressedCarded.correctedWith(marginor, carded)
+    // RowsFillabler.doing(cloned, corrected)
 
-    // const recorrected = SquareAddressedCarded.correctedWith(marginorr, corrected)
-    // Fillabler.doing(expanded, recorrected)
 
-    const carded = SquareAddressedCarded.of(card, address)
+    const onboard = CardOnBoard.from(card, address)
     const cloned = clonedFrom(rows)
-    RowsAttacher.doing(carded, cloned)
+    RowsAttacher.doing(onboard, cloned)
 
     const marginor = RowsMarginor.fromBy(cloned)
     RowsMarginer.doing(cloned, marginor)
 
-    const corrected = SquareAddressedCarded.correctedWith(marginor, carded)
+    const corrected = CardOnBoard.correctedWith(marginor, onboard)
     RowsFillabler.doing(cloned, corrected)
 
     return cloned
@@ -113,8 +108,8 @@ namespace Rows {
 
   export const initialized = (): Rows => {
 
-    const card = Card.first()
-    const address = Address.zero
+    const card = Card.first
+    const address = Address.first
     const rows = blank()
     return cardAttachedAt(address, card, rows)
   }
