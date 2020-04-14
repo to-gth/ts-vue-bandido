@@ -3,7 +3,7 @@ import Direction from '@/foundation/Direction';
 import Limb from './Limb';
 import ApplicationError from 'ts-application-error';
 import CardType from './CardType';
-import CardOnBoard from './CardOnBoard';
+import Card from './Card';
 
 type SquareFill = {
   side: Direction;
@@ -28,27 +28,32 @@ namespace SquareFill {
 
 namespace SquareFill {
 
-  // TODO
-  // refactor with SquareAddressed
+  export const primaryFrom = (card: Card): SquareFill => {
+    const opposite = Direction.oppositeOf(card.direction)
+    const primary = Limb.primaryOf(card.type)
+    return from(opposite, primary)
+  }
+  export const secondaryFrom = (card: Card): SquareFill => {
+    const secondary = Limb.secondaryOf(card.type)
+    return from(card.direction, secondary)
+  }
 
   export const sFrom = (cardType: CardType, direction: Direction = Direction.Right): SquareFill[] => {
 
-    const opposite = Direction.oppositeOf(direction)
-    const primary = Limb.primaryOf(cardType)
-    const secondary = Limb.secondaryOf(cardType)
+    const card = Card.from(direction, cardType)
     return [
-      from(opposite, primary),
-      from(direction, secondary),
+      primaryFrom(card),
+      secondaryFrom(card)
     ]
   }
 }
 
 namespace SquareFill {
 
-  export const sOf = (cardOnBoard: CardOnBoard): SquareFill[] => {
-    const { direction, type } = cardOnBoard.card
-    return sFrom(type, direction)
-  }
+  // export const sOf = (cardOnBoard: CardOnBoard): SquareFill[] => {
+  //   const { direction, type } = cardOnBoard.card
+  //   return sFrom(type, direction)
+  // }
 }
 
 export default SquareFill;

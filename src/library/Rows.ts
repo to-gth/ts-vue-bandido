@@ -2,7 +2,6 @@
 import Row from './Row';
 import Address from './Address';
 import Card from './Card';
-// import SquareAddressedCarded from './SquareAddressedCarded';
 // import Int from 'ts-number/src/Int';
 import RowsMarginor from './RowsMarginor';
 import RowsMarginer from './RowsMarginer';

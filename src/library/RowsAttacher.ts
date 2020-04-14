@@ -1,12 +1,11 @@
 import ApplicationError from 'ts-application-error';
 import Rows from './Rows';
 import Row from './Row';
-// import SquareAddressedCarded from './SquareAddressedCarded';
-// import SquareAddressed from './SquareAddressed';
 import Address from './Address';
-import Square from './Square';
 import CardOnBoard from './CardOnBoard';
-import SquareFill from './SquareFill';
+import SquareFillOnBoardPair from './SquareFillOnBoardPair';
+import SquareFillOnBoard from './SquareFillOnBoard';
+import Square from './Square';
 
 namespace RowsAttacher {
 
@@ -14,8 +13,6 @@ namespace RowsAttacher {
     const { top, left } = address
     const row = Row.beingAt(top, rows)
     if (!row) throw new ApplicationError(`Failed to get a row at: ${ top }`)
-    // const clone = {...square}
-    // row[left] = clone
     Row.beingAttachedAt(left, square, row)
   }
 
@@ -27,13 +24,17 @@ namespace RowsAttacher {
   //   doingOf(carded.primary, rows)
   //   doingOf(carded.secondary, rows)
   // }
-  export const doing = (cardOnBoard: CardOnBoard, rows: Rows): void => {
 
-    const [fillPrimary, fillSecondary] = SquareFill.sOf(cardOnBoard)
-    const addressPrimary = Address.primaryFrom(cardOnBoard)
-    const addressSecondary = Address.secondaryFrom(cardOnBoard)
-    doingAt(addressPrimary, fillPrimary, rows)
-    doingAt(addressSecondary, fillSecondary, rows)
+  export const doingWith = ({ address, squareFill }: SquareFillOnBoard, rows: Rows): void => {
+    const { top, left } = address
+    const row = Row.beingAt(top, rows)
+    if (!row) throw new ApplicationError(`Failed to get a row at: ${ top }`)
+    Row.beingAttachedAt(left, squareFill, row)
+  }
+  export const doing = (cardOnBoard: CardOnBoard, rows: Rows): void => {
+    const { primary, secondary } = SquareFillOnBoardPair.fromOf(cardOnBoard)
+    doingWith(primary, rows)
+    doingWith(secondary, rows)
   }
 }
 

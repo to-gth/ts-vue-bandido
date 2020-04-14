@@ -1,6 +1,4 @@
 import Rows from './Rows';
-// import SquareAddressedCarded from './SquareAddressedCarded';
-// import SquareAddressed from './SquareAddressed';
 import LimbDirection from './LimbDirection';
 import Address from './Address';
 import Square from './Square';
@@ -9,11 +7,15 @@ import Direction from '@/foundation/Direction';
 import RowsAttacher from './RowsAttacher';
 import RoomRestrict from './RoomRestrict';
 import CardOnBoard from './CardOnBoard';
-import SquareFill from './SquareFill';
+import SquareFillOnBoardPair from './SquareFillOnBoardPair';
+import SquareFillOnBoard from './SquareFillOnBoard';
 
 namespace RowsFillabler {
 
-  const doingAround = (address: Address, center: SquareFill, rows: Rows): void => {
+  // const doingAround = (address: Address, center: SquareFill, rows: Rows): void => {
+  const doingAround = ({address, squareFill}: SquareFillOnBoard, rows: Rows): void => {
+
+    const center = squareFill
 
     LimbDirection
       .sAllFrom(center.side)
@@ -33,11 +35,14 @@ namespace RowsFillabler {
   export const doing = (rows: Rows, cardOnBoard: CardOnBoard): void => {
 
     // TODO: refactor
-    const [fillPrimary, fillSecondary] = SquareFill.sOf(cardOnBoard)
-    const addressPrimary = Address.primaryFrom(cardOnBoard)
-    const addressSecondary = Address.secondaryFrom(cardOnBoard)
-    doingAround(addressPrimary, fillPrimary, rows)
-    doingAround(addressSecondary, fillSecondary, rows)
+    const { primary, secondary } = SquareFillOnBoardPair.fromOf(cardOnBoard)
+    // const [fillPrimary, fillSecondary] = SquareFill.sOf(cardOnBoard)
+    // const addressPrimary = Address.primaryFrom(cardOnBoard)
+    // const addressSecondary = Address.secondaryFrom(cardOnBoard)
+    // doingAround(addressPrimary, fillPrimary, rows)
+    // doingAround(addressSecondary, fillSecondary, rows)
+    doingAround(primary, rows)
+    doingAround(secondary, rows)
   }
 }
 
