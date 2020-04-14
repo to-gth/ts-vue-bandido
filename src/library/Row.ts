@@ -30,9 +30,14 @@ namespace Row {
 
 namespace Row {
 
-  export const at = (top: number, rows: Rows): Row | null => {
+  export const beingAt = (top: number, rows: Rows): Row | undefined => {
+    return rows[top]
+  }
+
+  export const circularlyAt = (top: number, rows: Rows): Row | null => {
     const row = rows.slice(top)[0]
-    return row || null
+    // return row || null
+    return row ? clonedFrom(row) : null
   }
 }
 
@@ -46,11 +51,19 @@ namespace Row {
     return row.every(SquareBlank.accepts)
   }
   export const isBlankAt = (top: number, rows: Rows): boolean => {
-    const row = at(top, rows)
+    const row = circularlyAt(top, rows)
     if (!row) throw new ApplicationError(`Failed to get a row at: ${ top }`)
     return isBlank(row)
   }
 
+}
+
+namespace Row {
+
+  export const beingAttachedAt = (left: number, square: Square, row: Row): void => {
+    if (!Square.beingAt(left, row)) throw new ApplicationError(`Failed to get a square at ${left} from: ${row}`)
+    row[left] = Square.clonedFrom(square)
+  }
 }
 
 export default Row;

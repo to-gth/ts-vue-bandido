@@ -25,16 +25,22 @@ type Square = SquareFilled | SquareBlank
 
 namespace Square {
 
-  export const at = ({ left, top }: Address, rows: Rows): Square | null => {
-    const row = Row.at(top, rows)
-    return row ? {...row[left]} : null
+  export const clonedFrom = (square: Square): Square => {
+    return {...square}
   }
 }
 
 namespace Square {
 
-  export const clonedFrom = (square: Square): Square => {
-    return {...square}
+  export const beingAt = (left: number, row: Row): Square | undefined => {
+    return row[left]
+  }
+
+  export const at = ({ left, top }: Address, rows: Rows): Square | null => {
+    const row = Row.beingAt(top, rows)
+    if (!row) return null
+    const square = beingAt(left, row)
+    return square ? clonedFrom(square) : null
   }
 }
 
