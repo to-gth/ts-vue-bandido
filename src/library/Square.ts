@@ -1,11 +1,11 @@
 
 import Rows from './Rows';
 import Address from './Address';
-import SquareBlank from './SquareBlank';
+import SquareRoom from './SquareRoom';
 import SquareFilled from './SquareFilled';
 import Row from './Row';
 
-type Square = SquareFilled | SquareBlank
+type Square = SquareFilled | SquareRoom
 
 // namespace Square {
 

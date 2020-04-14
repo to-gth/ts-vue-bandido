@@ -23,8 +23,8 @@ import Vue from "vue";
 import SquareFilled from '../library/SquareFilled';
 import LimbDirection from '../library/LimbDirection';
 import Direction from '../foundation/Direction';
-import BlankRestrict from '../library/BlankRestrict';
-import SquareBlank from '../library/SquareBlank';
+import RoomRestrict from '../library/RoomRestrict';
+import SquareRoom from '../library/SquareRoom';
 import Limbor from '../library/Limbor';
 
 export default Vue.extend({
@@ -54,7 +54,7 @@ export default Vue.extend({
     },
     restrict(): string {
       if (this.isFilled) return  ''
-      return BlankRestrict
+      return RoomRestrict
         .namesFrom(this.square)
         .map(name => 'restrict-' + name)
         .join(' ')
@@ -92,9 +92,9 @@ export default Vue.extend({
     // },
   },
   methods: {
-    classnameOf(direction: Direction, blank: SquareBlank) {
-      const restrict = BlankRestrict.on(direction, blank)
-      return BlankRestrict[restrict].toLowerCase()
+    classnameOf(direction: Direction, blank: SquareRoom) {
+      const restrict = RoomRestrict.on(direction, blank)
+      return RoomRestrict[restrict].toLowerCase()
     },
     // indexOfCorridorOf(side: Direction): number {
     //   switch (side) {

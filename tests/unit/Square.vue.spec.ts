@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { shallowMount } from '@vue/test-utils'
 import Square from '@/components/Square.vue'
-import SquareBlank from '@/library/SquareBlank'
+import SquareRoom from '@/library/SquareRoom'
 import SquareFilled from '@/library/SquareFilled'
 import Direction from '@/foundation/Direction'
 import Limb from '@/library/Limb'
@@ -11,7 +11,7 @@ describe('Square.vue', () => {
 
   it('isFilled', () => {
 
-    const blank = SquareBlank.blank()
+    const blank = SquareRoom.blank()
 
     const propsData = { square: blank }
     const options = { propsData }

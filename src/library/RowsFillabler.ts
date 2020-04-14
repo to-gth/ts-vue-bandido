@@ -4,10 +4,10 @@ import Rows from './Rows';
 import LimbDirection from './LimbDirection';
 import Address from './Address';
 import Square from './Square';
-import SquareBlank from './SquareBlank';
+import SquareRoom from './SquareRoom';
 import Direction from '@/foundation/Direction';
 import RowsAttacher from './RowsAttacher';
-import BlankRestrict from './BlankRestrict';
+import RoomRestrict from './RoomRestrict';
 import CardOnBoard from './CardOnBoard';
 import SquareFilled from './SquareFilled';
 
@@ -21,11 +21,11 @@ namespace RowsFillabler {
 
         const shifted = Address.shiftedToNext(direction, address)
         const square = Square.at(shifted, rows)
-        if (!SquareBlank.accepts(square)) return
+        if (!SquareRoom.accepts(square)) return
 
-        const restrict = BlankRestrict.correspondedFor(direction, center)
+        const restrict = RoomRestrict.correspondedFor(direction, center)
         const opposite = Direction.oppositeOf(direction)
-        const overwritten = SquareBlank.overwrittenOn(opposite, restrict, square)
+        const overwritten = SquareRoom.overwrittenOn(opposite, restrict, square)
         RowsAttacher.doingAt(shifted, overwritten, rows)
       })
   }

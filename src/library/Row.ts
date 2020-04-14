@@ -1,10 +1,10 @@
 
 import Square from './Square';
 import Rows from './Rows';
-import SquareBlank from './SquareBlank';
+import SquareRoom from './SquareRoom';
 import ApplicationError from 'ts-application-error';
 
-type Row = Array<Square | SquareBlank>
+type Row = Array<Square | SquareRoom>
 
 namespace Row {
 
@@ -44,11 +44,11 @@ namespace Row {
 namespace Row {
 
   export const blank = (length: number): Row => {
-    return [...Array(length)].map(SquareBlank.blank)
+    return [...Array(length)].map(SquareRoom.blank)
   }
 
   const isBlank = (row: Row): boolean => {
-    return row.every(SquareBlank.accepts)
+    return row.every(SquareRoom.accepts)
   }
   export const isBlankAt = (top: number, rows: Rows): boolean => {
     const row = circularlyAt(top, rows)
