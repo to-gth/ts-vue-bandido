@@ -5,7 +5,7 @@ import Matrix from '@/foundation/Matrix';
 import Int from 'ts-number/src/Int';
 import Address from './Address';
 import Card from './Card';
-import AddressCarded from './AddressCarded';
+import AddressPair from './AddressPair';
 
 type RowsMarginor = {
   left: Int;
@@ -58,8 +58,7 @@ namespace RowsMarginor {
 
   export const fromWith = (card: Card, address: Address, rows: Rows): RowsMarginor => {
 
-    const carded = AddressCarded.from(card, address)
-    const { primary, secondary } = carded
+    const { primary, secondary } = AddressPair.from(card, address)
 
     const lefts = [primary.left, secondary.left]
     const tops = [primary.top, secondary.top]
