@@ -3,6 +3,7 @@
     <Hand
       v-for="(hand, i) of hands"
       :key="i"
+      :isSelected='isSelected(i)'
       :hand='hand'
     />
   </div>
@@ -15,7 +16,8 @@ import Hand from './Hand.vue';
 export default Vue.extend({
   name: "Square",
   props: {
-    hands: Array
+    hands: Array,
+    hand: Number,
   },
   components: {
     Hand
@@ -23,6 +25,9 @@ export default Vue.extend({
   computed: {
   },
   methods: {
+    isSelected(index: number): boolean {
+      return index === this.hand
+    }
   },
   // mounted() {}
 });

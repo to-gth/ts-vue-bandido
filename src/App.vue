@@ -1,8 +1,11 @@
 <template>
-  <div id="app" class='app-fullview app-gridder'>
+  <div id="app" class='app-fullview app-gridder'
+    @keydown.up="handPrev"
+    @keydown.down="handNext"
+    tabindex="999">
     <Field />
     <AppTitle />
-    <Hands :hands='hands' />
+    <Hands :hands='hands' :hand='hand' />
   </div>
 </template>
 
@@ -23,8 +26,23 @@ export default Vue.extend({
   computed: {
     hands(): CardType[] {
       return this.$store.state.hands
-    }
-  }
+    },
+    hand(): CardType[] {
+      return this.$store.state.hand
+    },
+  },
+  methods: {
+    handPrev(): void {
+      this.$store.dispatch('handPrev')
+    },
+    handNext(): void {
+      this.$store.dispatch('handNext')
+    },
+  },
+  mounted() {
+    const el = document.getElementById('app')
+    el ? el.focus() : null
+  },
 });
 </script>
 
@@ -39,7 +57,7 @@ export default Vue.extend({
   margin: 0;
   padding: 20px;
 
-
+  outline: 0;
 }
 .app-fullview {
   box-sizing: border-box;
@@ -52,6 +70,6 @@ export default Vue.extend({
   display: grid;
   grid-template-rows: 200px 1fr;
   grid-template-columns: 1fr 200px;
-  gap: 5px;;
+  gap: 5px;
 }
 </style>

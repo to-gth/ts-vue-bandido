@@ -1,6 +1,7 @@
 <template>
-  <div class="hand">
+  <div class="hand hand-gridder">
     <RowVue :row='row' />
+    <div class="cursor" :class='{selected: isSelected}'></div>
   </div>
 </template>
 
@@ -13,7 +14,8 @@ import Row from '../library/Row';
 export default Vue.extend({
   name: "Hand",
   props: {
-    hand: Number
+    hand: Number,
+    isSelected: Boolean,
   },
   components: {
     RowVue
@@ -35,5 +37,13 @@ export default Vue.extend({
 .hand {
   border: lightgrey 1px solid;
   margin: 10px;
+}
+.cursor.selected::before {
+  content: '<';
+}
+
+.hand-gridder {
+  display: grid;
+  grid-template-columns: 1fr 30px;
 }
 </style>
