@@ -1,7 +1,12 @@
 <template>
   <div id="app" class='app-fullview app-gridder'
-    @keydown.up="handPrev"
-    @keydown.down="handNext"
+    @keydown.up="keyUp"
+    @keydown.down="keyDown"
+    @keydown.left="keyLeft"
+    @keydown.right="keyRight"
+    @keydown.enter="keyEnter"
+    @keydown.188="keyLt"
+    @keydown.190="keyGt"
     tabindex="999">
     <Field />
     <AppTitle />
@@ -32,11 +37,26 @@ export default Vue.extend({
     },
   },
   methods: {
-    handPrev(): void {
-      this.$store.dispatch('handPrev')
+    keyUp(): void {
+      this.$store.dispatch('keyUp')
     },
-    handNext(): void {
-      this.$store.dispatch('handNext')
+    keyDown(): void {
+      this.$store.dispatch('keyDown')
+    },
+    keyLeft(): void {
+      this.$store.dispatch('keyLeft')
+    },
+    keyRight(): void {
+      this.$store.dispatch('keyRight')
+    },
+    keyEnter(): void {
+      this.$store.dispatch('keyEnter')
+    },
+    keyLt(): void {
+      this.$store.dispatch('keyLt')
+    },
+    keyGt(): void {
+      this.$store.dispatch('keyGt')
     },
   },
   mounted() {
