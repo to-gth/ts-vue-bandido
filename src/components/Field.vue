@@ -1,6 +1,6 @@
 <template>
 <div id="field" class='field-griddee'>
-  <Row v-for="(row, r) of rows" :key="r" :row="row" />
+  <Row v-for="(row, r) of rows" :key="r" :row="row" :floatingLefts='floatingLeftsIn(r)'/>
 </div>
 </template>
 
@@ -8,29 +8,35 @@
 import Vue from "vue";
 import Row from "./Row.vue";
 import Rows from "@/library/Rows.ts";
+import Address from '../library/Address';
 
 export default Vue.extend({
   name: "Field",
   props: {},
   components: {
-    Row
+    Row,
   },
   computed: {
     rows(): Rows {
-      return this.$store.state.rows
+      // return this.$store.state.rows
+      return this.$store.getters.rowsWithFloating
     }
   },
   methods: {
-    // row(): Square[] {
-    //   return [
-    //     Square.from(false, true, false, false),
-    //     Square.from(false, false, true, false),
-    //     Square.from(false, true, false, false),
-    //     Square.from(false, false, true, false),
-    //     Square.from(false, true, false, false),
-    //     Square.from(false, false, true, false)
-    //   ];
-    // }
+    floatingLeftFor({ left, top }: Address, r: number): number[] {
+      return (r === top) ? [left] : []
+    },
+    floatingLeftsIn(r: number): number[] {
+      if (!this.$store.getters.isFloatingMode) {
+        return [0]
+      }
+      const { primary, secondary } =  this.$store.getters.floatingAddressPair
+      const lefts = [
+        ...this.floatingLeftFor(primary, r),
+        ...this.floatingLeftFor(secondary, r),
+      ]
+      return lefts
+    },
   }
 });
 </script>

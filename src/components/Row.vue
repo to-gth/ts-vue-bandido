@@ -5,6 +5,7 @@
       v-for="(square, i) of row"
       :key="i"
       :square="square"
+      :isFloating="isFloatingAt(i)"
     />
   </div>
 </template>
@@ -16,10 +17,19 @@ import Square from "./Square.vue";
 export default Vue.extend({
   name: "Row",
   props: {
-    row: Array
+    row: Array,
+    floatingLefts: {
+      type: Array,
+      default: () => [],
+    },
   },
   components: {
     Square
+  },
+  methods: {
+    isFloatingAt(i: number): boolean {
+      return this.floatingLefts.includes(i)
+    }
   },
   // mounted() {}
 });

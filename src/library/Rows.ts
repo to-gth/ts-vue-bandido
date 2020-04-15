@@ -52,20 +52,6 @@ namespace Rows {
 
 namespace Rows {
 
-  // const blankFrom = (marginor: RowsMarginor, rows: Rows): Rows => {
-  //   const size = Matrix.sizeOf(rows)
-  //   const { left, top, right, bottom } = marginor
-  //   const width = Int.from(left + size.width + right)
-  //   const height = Int.from(top + size.height + bottom)
-  //   return Matrix.from(width, height)
-  // }
-
-  // const expandedBy = (marginor: RowsMarginor, rows: Rows): Rows => {
-  //   const expanded = blankFrom(marginor, rows)
-  //   const offset = Address.from(marginor.left, marginor.top)
-  //   return Attacher.doingFrom(offset, expanded, rows)
-  // }
-
   const clonedFrom = (rows: Rows): Rows => {
     const cloned = rows.map(Row.clonedFrom)
     if (accepts(cloned)) return cloned
@@ -73,17 +59,6 @@ namespace Rows {
   }
 
   export const cardAttachedAt = (address: Address, card: Card, rows: Rows): Rows => {
-
-    // const carded = SquareAddressedCarded.of(card, address)
-    // const cloned = clonedFrom(rows)
-    // RowsAttacher.doing(carded, cloned)
-
-    // const marginor = RowsMarginor.fromBy(cloned)
-    // RowsMarginer.doing(cloned, marginor)
-
-    // const corrected = SquareAddressedCarded.correctedWith(marginor, carded)
-    // RowsFillabler.doing(cloned, corrected)
-
 
     const onboard = CardOnBoard.from(card, address)
     const cloned = clonedFrom(rows)
@@ -94,6 +69,15 @@ namespace Rows {
 
     const corrected = CardOnBoard.correctedWith(marginor, onboard)
     RowsFillabler.doing(cloned, corrected)
+
+    return cloned
+  }
+
+  export const floatingCardAttachedAt = (address: Address, card: Card, rows: Rows): Rows => {
+
+    const onboard = CardOnBoard.from(card, address)
+    const cloned = clonedFrom(rows)
+    RowsAttacher.doing(onboard, cloned)
 
     return cloned
   }

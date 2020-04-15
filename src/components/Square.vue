@@ -1,11 +1,5 @@
 <template>
-  <div class="square square-gridder" :class='[which, side, limb, restrict]'>
-    <!-- <div
-      class="bit"
-      v-for="(classname, i) of classnames"
-      :key="i"
-      :class="classname"
-    /> -->
+  <div class="square square-gridder" :class='[which, side, limb, restrict, floating]'>
     <div class="bit bit-square"></div>
     <div class="bit bit-square"></div>
     <div class="bit bit-square"></div>
@@ -30,7 +24,8 @@ import Limbor from '../library/Limbor';
 export default Vue.extend({
   name: "Square",
   props: {
-    square: Object
+    square: Object,
+    isFloating: Boolean,
   },
   // components: {},
   computed: {
@@ -58,6 +53,9 @@ export default Vue.extend({
         .namesFrom(this.square)
         .map(name => 'restrict-' + name)
         .join(' ')
+    },
+    floating(): string {
+      return this.isFloating ? 'floating' : ''
     },
     // isFill(): boolean {
     //   return SquareFill.accepts(this.square)
@@ -182,5 +180,9 @@ export default Vue.extend({
 .restrict-right-close .bit:nth-child(6),
 .restrict-bottom-close .bit:nth-child(8) {
   background-color: lightgray;
+}
+
+.floating .bit {
+  opacity: 0.6;
 }
 </style>
