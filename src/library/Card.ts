@@ -1,11 +1,12 @@
 
 import Direction from '@/foundation/Direction';
 import CardType from './CardType';
+import SquareRoom from './SquareRoom';
+import LimbDirection from './LimbDirection';
+import SquareFill from './SquareFill';
 
 type Card = {
   direction: Direction;
-  // primary: Limb;
-  // secondary: Limb;
   type: CardType;
 };
 
@@ -13,21 +14,49 @@ namespace Card {
 
   export const from = (
     direction: Direction,
-    // primary: Limb,
-    // secondary: Limb,
     type: CardType,
   ): Card => {
     const one = { direction, type };
     return one
   };
+
+  export const first = from(Direction.Left, CardType.HRxL)
 }
 
 namespace Card {
 
-  export const first = from(Direction.Left, CardType.HRxL)
-  // export const first = (): Card => {
-  //   return from(Direction.Left, CardType.HRxL)
-  // }
+  const isOk = (squareRoom: SquareRoom, squareFill: SquareFill): boolean => {
+
+    const roomOpens = LimbDirection.sOpenFrom(squareRoom)
+    const roomCloses = LimbDirection.sCloseFrom(squareRoom)
+    const fillDirections = LimbDirection.sIncludedIn(squareFill)
+
+    // TODO:
+    // refactor with lodash
+
+    const a = roomOpens.every((openDirection) => {
+      return fillDirections.includes(openDirection)
+    })
+    const b = fillDirections.every((fillDirection) => {
+      return !roomCloses.includes(fillDirection)
+    })
+    return a && b
+  }
+
+  export const isAttachableIn = (primary: SquareRoom, secondary: SquareRoom, card: Card): boolean => {
+
+    const primaryFill = SquareFill.primaryFrom(card)
+    const primaryIsOk = isOk(primary, primaryFill)
+    if (!primaryIsOk) return false
+    const secondaryFill = SquareFill.secondaryFrom(card)
+    const secondaryIsOk = isOk(secondary, secondaryFill)
+    if (!secondaryIsOk) return false
+
+    if (LimbDirection.sOpenFrom(primary).length
+      + LimbDirection.sOpenFrom(secondary).length === 0) return false
+
+    return true
+  }
 }
 
 export default Card;
