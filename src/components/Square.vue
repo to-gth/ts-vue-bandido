@@ -142,24 +142,24 @@ export default Vue.extend({
 }
 
 .side-left.limb-r .bit:nth-child(2),
-.side-top.limb-h .bit:nth-child(2),
+.side-up.limb-h .bit:nth-child(2),
 .side-right.limb-l .bit:nth-child(2),
-.side-bottom .bit:nth-child(2),
+.side-down .bit:nth-child(2),
 
 .side-left.limb-h .bit:nth-child(4),
-.side-top.limb-l .bit:nth-child(4),
+.side-up.limb-l .bit:nth-child(4),
 .side-right .bit:nth-child(4),
-.side-bottom.limb-r .bit:nth-child(4),
+.side-down.limb-r .bit:nth-child(4),
 
 .side-left .bit:nth-child(6),
-.side-top.limb-r .bit:nth-child(6),
+.side-up.limb-r .bit:nth-child(6),
 .side-right.limb-h .bit:nth-child(6),
-.side-bottom.limb-l .bit:nth-child(6),
+.side-down.limb-l .bit:nth-child(6),
 
 .side-left.limb-l .bit:nth-child(8),
-.side-top .bit:nth-child(8),
+.side-up .bit:nth-child(8),
 .side-right.limb-r .bit:nth-child(8),
-.side-bottom.limb-h .bit:nth-child(8),
+.side-down.limb-h .bit:nth-child(8),
 
 .square-Fill .bit:nth-child(5) { /* .passage */
   background-color: yellow;
