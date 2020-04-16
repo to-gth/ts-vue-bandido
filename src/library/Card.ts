@@ -20,7 +20,7 @@ namespace Card {
     return one
   };
 
-  export const first = from(Direction.Left, CardType.HRxL)
+  export const first = from(Direction.Right, CardType.LHRxLHR)
 }
 
 namespace Card {

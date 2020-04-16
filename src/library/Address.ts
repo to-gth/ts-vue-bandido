@@ -14,7 +14,7 @@ namespace Address {
   export const from = Point.from
 
   export const zero = from(0, 0)
-  export const first = from(1, 0)
+  export const first = from(0, 0)
 }
 
 namespace Address {
