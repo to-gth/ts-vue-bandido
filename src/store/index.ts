@@ -152,7 +152,6 @@ export default new Vuex.Store({
       }
       const rows = state.rows
       if (!Address.isWithin(rows, handAddress)) return
-      console.log('handAddress', handAddress)
       const secondary = Address.shiftedToNext(state.handCardDirection, handAddress)
       if (!Address.isWithin(rows, secondary)) return
       commit('UPDATE_HAND_ADDRESS', handAddress)
