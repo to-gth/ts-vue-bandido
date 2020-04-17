@@ -1,5 +1,6 @@
 <template>
   <div id="hands">
+    <div id="deck">deck remains: {{remains}}</div>
     <Hand
       v-for="(hand, i) of hands"
       :key="i"
@@ -23,6 +24,9 @@ export default Vue.extend({
     Hand
   },
   computed: {
+    remains(): number {
+      return this.$store.state.deck.length
+    }
   },
   methods: {
     isSelected(index: number): boolean {
@@ -35,16 +39,10 @@ export default Vue.extend({
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-/* #hands { */
-  /* display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  height: 100%; */
-
-  /* grid-auto-rows: 1fr; */
-  /* grid-auto-rows: 30px; */
-
-  /* border: lightgrey 1px solid;
-  margin-top: -1px;
-  margin-left: -1px; */
-/* } */
+#deck {
+  border-bottom: lightgrey 3px double;
+  margin: 40px;
+  margin-top: 20px;
+  padding: 3px;
+}
 </style>

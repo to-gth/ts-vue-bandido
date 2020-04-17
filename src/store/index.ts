@@ -14,16 +14,18 @@ import RowsAttachability from '@/library/RowsAttachability'
 Vue.use(Vuex)
 
 const deck = CardType.randomAll()
-const hands = deck.splice(0, 5)
+const numOfHands = 4
+const hands = deck.splice(0, numOfHands)
 
 export default new Vuex.Store({
   state: {
     deck: deck,
     hands: hands,
+    rows: Rows.initialized(),
+    // isFloating: false,
     hand: 0,
     handAddress: null as Address | null,
     handCardDirection: Direction.Right,
-    rows: Rows.initialized(),
   },
   getters: {
     isFloatingMode: (state): boolean => {
@@ -121,7 +123,7 @@ export default new Vuex.Store({
   actions: {
     updateHand: ({ commit }, hand) => {
       if (hand < 0) return
-      if (hand >= 5) return
+      if (hand >= numOfHands) return
       commit('UPDATE_HAND', hand)
     },
     handShift: ({ dispatch, state }, direction) => {
