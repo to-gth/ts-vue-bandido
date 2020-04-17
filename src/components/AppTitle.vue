@@ -3,6 +3,7 @@
     <h1 id="title">
       Bandido
     </h1>
+    <div id='title-horizon'></div>
     <div id='made-with'>
       Vue and TypeScript
     </div>
@@ -24,19 +25,24 @@ export default Vue.extend({
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: center;
-  margin: 30px;
+  margin: 0;
+  align-content: center;
   /* margin-top: 5px;
   margin-bottom: 10px; */
+  border: double 4px lightgrey;
 }
 #title {
   text-align: center;
-  font-size: 1.3em;
+  font-size: 1.5em;
   letter-spacing: 0.05em;
   margin: 0;
+  margin-bottom: 10px;
+  /* width: auto; */
+  border-bottom: 1px solid grey;
 }
 #made-with {
   display: inline-block;
-  margin-left: 0.6em;
+  /* margin-left: 0.6em; */
   font-size: 0.9em;
   font-weight: lighter;
   letter-spacing: 0.03em;
