@@ -28,7 +28,7 @@ export default Vue.extend({
     },
     floatingLeftsIn(r: number): number[] {
       if (!this.$store.getters.isFloatingMode) {
-        return [0]
+        return []
       }
       const { primary, secondary } =  this.$store.getters.floatingAddressPair
       const lefts = [
