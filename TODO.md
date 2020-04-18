@@ -1,11 +1,21 @@
 # TODO
 
 
+
+
+
+## DEV side
+
+
+
+## fix
+
+omit LHRxLHR and define as the first card
+
+
 ## eslint
 
 - etc
-
-
 
 
 ## ts
@@ -15,24 +25,45 @@
 
 
 
-
 ## refactor
 
 Row = Square[]
 Rows = Row[]
-Field = readonly { Size, Rows }
+
+RectangleArray
+Field = readonly { Size, Rows } or Brand<'Field', Row[]>
 
 
-Limb = L,H,R,D
 
-CardType = LHxR, RxD, HxLH, ...
-Card = direction, cardType
 
-Square
-  SquareRoom
-  SquareFill
-    SquareFillOnBoard
-    SquareFillOnBoardPair
+
+
+
+## UX side
+
+
+
+### feature
+
+gameover
+
+
+
+### design
+
+cursor
+hand
+deck
+
+layout
+  centering
+  responsive
+
+
+
+### efect
+
+blink card
 
 
 
