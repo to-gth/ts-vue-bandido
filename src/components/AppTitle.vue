@@ -29,7 +29,8 @@ export default Vue.extend({
   align-content: center;
   /* margin-top: 5px;
   margin-bottom: 10px; */
-  border: double 4px lightgrey;
+  /* background-color: whitesmoke; */
+  border: solid 1px lightgrey;
 }
 #title {
   text-align: center;
