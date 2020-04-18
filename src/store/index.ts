@@ -14,7 +14,7 @@ import RowsAttachability from '@/library/RowsAttachability'
 Vue.use(Vuex)
 
 const deck = CardType.randomAll()
-const numOfHands = 4
+const numOfHands = 3
 const hands = deck.splice(0, numOfHands)
 
 export default new Vuex.Store({
@@ -114,6 +114,7 @@ export default new Vuex.Store({
     REMOVE_AND_REFILL_HANDS: (state) => {
       state.hands.splice(state.hand, 1)
       const refill = state.deck.splice(0, 1)[0]
+      if (!refill) return
       state.hands.push(refill)
     },
     UPDATE_ROWS: (state, rows) => {
@@ -121,9 +122,10 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    updateHand: ({ commit }, hand) => {
+    updateHand: ({ state, commit }, hand) => {
       if (hand < 0) return
       if (hand >= numOfHands) return
+      if (hand >= state.hands.length) return
       commit('UPDATE_HAND', hand)
     },
     handShift: ({ dispatch, state }, direction) => {
@@ -201,6 +203,11 @@ export default new Vuex.Store({
       dispatch('initializeHandCardDirection')
       dispatch('updateHandAddress', null)
     },
+    correctHand: ({ state, commit }) => {
+      const length = state.hands.length
+      if (state.hand < length) return
+      commit('UPDATE_HAND', length - 1)
+    },
     attach: ({ getters, commit, dispatch }) => {
 
       if (!getters.isAttachable) return
@@ -209,6 +216,7 @@ export default new Vuex.Store({
       commit('UPDATE_ROWS', attachedRows)
       dispatch('clearHandAddress')
       commit('REMOVE_AND_REFILL_HANDS')
+      dispatch('correctHand')
     },
     initializeHandAddress: ({ dispatch }) => {
       dispatch('updateHandAddress', Address.zero)
