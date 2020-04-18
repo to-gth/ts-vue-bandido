@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "precache-manifest.4798191f57e6054f8ee8a1ed27d44b38.js"
+  "precache-manifest.935c948418552528a854b660aece5a1f.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "bandido"});
