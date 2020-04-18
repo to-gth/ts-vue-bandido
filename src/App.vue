@@ -8,7 +8,7 @@
     @keydown.188="keyLt"
     @keydown.190="keyGt"
     tabindex="999">
-    <Field />
+    <Field class='app-griddee-field'/>
     <AppTitle />
     <Hands :hands='hands' :hand='hand' />
   </div>
@@ -91,5 +91,8 @@ export default Vue.extend({
   grid-template-rows: 200px 1fr;
   grid-template-columns: 1fr 200px;
   gap: 5px;
+}
+.app-griddee-field {
+  grid-row: span 2;
 }
 </style>
