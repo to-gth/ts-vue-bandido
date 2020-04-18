@@ -51,8 +51,4 @@ border: 1px solid lightgrey;
 grid-template-columns: repeat(3, 1fr);
 grid-auto-rows: 1fr; */
 }
-.field-griddee {
-  grid-row: 1 / 3;
-  grid-column: 1 / 2;
-}
 </style>
