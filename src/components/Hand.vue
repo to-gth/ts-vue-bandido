@@ -1,7 +1,7 @@
 <template>
-  <div class="hand hand-gridder">
+  <div class="hand hand-gridder" :class='{selected: isSelected}'>
     <RowVue :row='row' />
-    <div class="cursor" :class='{selected: isSelected}'></div>
+    <div class="cursor cursor-triangle"></div>
   </div>
 </template>
 
@@ -38,12 +38,21 @@ export default Vue.extend({
   border: lightgrey 1px solid;
   margin: 10px;
 }
-.cursor.selected::before {
-  content: '<';
+
+.cursor {
+  width: 0;
+  height: 0;
+}
+.hand.selected > .cursor-triangle {
+  border-right: 16px solid grey;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
 }
 
 .hand-gridder {
   display: grid;
   grid-template-columns: 1fr 30px;
+  justify-content: center;
+  align-items: center;
 }
 </style>
